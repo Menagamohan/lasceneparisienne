@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Scene Parisienne</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        /* ===== HERO ===== */
+
+
+
+        /* ===== ADDRESS SECTION ===== */
+
+        .address-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 80px 80px;
+            gap: 100px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* LEFT */
+
+        .address-left {
+            flex: 1;
+            text-align: left;
+        }
+
+        .address-left h2 {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+            color: #fff;
+        }
+
+        .address-left .place {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 20px;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        .address-left p {
+            color: #ccc;
+            margin: 8px 0;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* BUTTON */
+
+        .address-left button {
+            margin-top: 40px;
+            padding: 12px 35px;
+            border-radius: 30px;
+            border: 1px solid #fff;
+            background: #fff;
+            color: #000;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+            text-transform: uppercase;
+            font-size: 13px;
+        }
+
+        .address-left button:hover {
+            background: transparent;
+            color: #fff;
+        }
+
+        /* RIGHT MAP */
+
+        .address-right {
+            flex: 1.5;
+        }
+
+        .address-right iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
+            filter: grayscale(0.2);
+        }
+
+        /* ===== RESERVATION ===== */
+
+        .reservation-section {
+            padding: 80px 80px;
+            background: #000;
+        }
+
+        .reservation-section .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .reservation-section h1 {
+            font-size: 50px;
+            margin-bottom: 30px;
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .reservation-section hr {
+            border: 0;
+            border-top: 1px solid #333;
+            margin-bottom: 60px;
+            width: 100%;
+        }
+
+        /* GRID */
+
+        .reservation-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 60px;
+        }
+
+        /* ITEM */
+
+        .item {
+            text-align: left;
+        }
+
+        .item .icon {
+            font-size: 24px;
+            margin-bottom: 20px;
+            border: 1px solid #fff;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            color: #fff;
+        }
+
+        /* TEXT */
+
+        .item h3 {
+            font-size: 15px;
+            margin-bottom: 20px;
+            color: #fff;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            line-height: 1.4;
+        }
+
+        .item p {
+            font-size: 13px;
+            color: #aaa;
+            line-height: 1.8;
+        }
+
+        /* BUTTON CENTER */
+
+        .btn-box {
+            margin-top: 80px;
+            text-align: center;
+        }
+
+        .btn-box button {
+            padding: 12px 35px;
+            border-radius: 30px;
+            border: 1px solid #fff;
+            background: #fff;
+            color: #000;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+            text-transform: uppercase;
+            font-size: 13px;
+        }
+
+        .btn-box button:hover {
+            background: transparent;
+            color: #fff;
+        }
+
+        /* ===== RESPONSIVE ===== */
+
+        @media (max-width: 1024px) {
+            .address-section {
+                flex-direction: column;
+                padding: 40px;
+                text-align: center;
+                gap: 30px;
+            }
+
+            .reservation-section {
+                padding: 40px;
+            }
+
+            .reservation-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .reservation-section h1 {
+                font-size: 36px;
+                text-align: center;
+            }
+
+            .btn-box {
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .reservation-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .address-left h2 {
+                font-size: 24px;
+            }
+
+            .address-right iframe {
+                height: 250px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="logo1"><img src="assets/images/logo.webp" alt="" style="width: 130px; height: 70px;"></div>
+        <nav class="nav" id="navMenu">
+            <a href="index.html">Accueil</a>
+            <a href="show.html">Spectacles</a>
+            <a href="theatre.html">Le théâtre</a>
+            <a href="Training.html">Formations</a>
+            <a href="Gallery.html">Galerie</a>
+            <a href="Access.html" class="active">Accès</a>
+            <a href="Contact.html">Contact</a>
+            <a href="login.html" id="navLogin" class="btn-login">Se Connecter</a>
+        </nav>
+        <div class="menu-icon" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+
+
+    <section class="hero-img">
+        <img src="assets/images/background 4.png" alt="img" style="width: 1690px; height: 300px;">
+    </section>
+
+
+    <section class="address-section">
+
+        <!-- LEFT CONTENT -->
+        <div class="address-left">
+            <h2>ADRESSE:</h2>
+
+            <p class="place">LA SCENE PARISIENNE</p>
+
+            <p>Metro 9 Grands Boulevards</p>
+            <p>Metro 7 Le Peletier ou Cadet 75009 Paris, FR</p>
+
+            <button>CONTACTER LE THÉÂTRE</button>
+        </div>
+
+        <!-- RIGHT MAP -->
+        <div class="address-right">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2846.2580602930434!2d2.3447149!3d48.874205499999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66f6ca649547d%3A0x2fe6540d4eb31429!2sLa%20Sc%C3%A8ne%20Parisienne!5e1!3m2!1sen!2sin!4v1775884572098!5m2!1sen!2sin"
+                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+
+    </section>
+
+    <section class="reservation-section">
+
+        <div class="container">
+
+            <h1>Réservations</h1>
+            <hr>
+
+            <div class="reservation-grid">
+
+                <!-- COLUMN 1 -->
+                <div class="item">
+                    <div class="icon">🖱️</div>
+                    <h3>EN LIGNE EN<br>QUELQUES CLICS</h3>
+                    <p>
+                        Vous recevrez une confirmation par e-mail.<br> Les billets sont à retirer avec cette
+                        confirmation, soit à l’accueil billetterie dès le lendemain de la commande aux horaires
+                        habituels, soit le soir du spectacle sur place.
+                    </p>
+                </div>
+
+                <!-- COLUMN 2 -->
+                <div class="item">
+                    <div class="icon">🎟️</div>
+                    <h3>AU GUICHET</h3>
+                    <p>
+                        Les billets sont en vente et à retirer à l’accueil billetterie en direct aux horaires habituels,
+                        sur place.
+                    </p>
+                </div>
+
+                <!-- COLUMN 3 -->
+                <div class="item">
+                    <div class="icon">📞</div>
+                    <h3>PAR TELEPHONE</h3>
+                    <p>
+                        Pôle Billetterie<br> Horaire : 10h30 – 18h30<br> 01 42 46 03 63
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- BUTTON -->
+            <div class="btn-box" style="margin-right: 1150px;">
+                <button>CONTACTER LE THÉÂTRE</button>
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- footer -->
+    <div class="footer-top">
+
+        <div class="line3"></div>
+
+        <div class="footer-row">
+
+            <!-- LEFT -->
+            <div class="footer-col">
+                <div class="logo"><img src="assets/images/logo.webp" alt="image" style="width: 160px; height: 100px;">
+                </div>
+
+                <p>La Scene Parisienne ©Tous droits réservés</p>
+                <p>Mentions légales</p>
+                <p>Site réalisé par MSV et design par Divine Agency</p>
+            </div>
+
+            <!-- CENTER -->
+            <div class="footer-col">
+                <h3>Liens utiles</h3>
+
+                <p>Spectacles</p>
+                <p>Le Théâtre</p>
+                <p>Accès</p>
+                <p>Contact</p>
+            </div>
+
+            <!-- RIGHT -->
+            <div class="footer-col">
+                <h3>La Scène Parisienne</h3>
+
+                <p>Metro 9 Grands Boulevards</p>
+                <p>Metro 7 Le Peletier Ou Cadet 75009 Paris, FR</p>
+                <p>Horaire: 10h30 - 18h30</p>
+                <p>01 42 46 03 63</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- BOTTOM -->
+    <div class="footer-bottom">
+
+        <h3>THÉÂTRES ET PRODUCTEURS ASSOCIÉS</h3>
+
+        <p>
+            The Théâtre de la Scène Parisienne is a member of Théâtres et Producteurs Associés, and is therefore part of
+            a strict professional ethic: respect for the rights of authors and performing artists, respect for the
+            general conditions of welcoming the public,
+            preservation of a leading architectural and cultural heritage.
+        </p>
+
+        <a href="https://tpa.fr/">https://tpa.fr/</a>
+
+        <img src="assets/images/logo_tpa.fr_.svg" alt="TPA Logo">
+
+    </div>
+
+
+
+    <script src="assets/js/script.js"></script>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="assets/js/firebase-config.js"></script>
+
+    <script>
+        // Check if user is logged in
+        firebase.auth().onAuthStateChanged((user) => {
+            const loginLink = document.getElementById('navLogin');
+            if (user) {
+                loginLink.href = 'admin.html';
+                loginLink.textContent = 'Se Connecter';
+            } else {
+                loginLink.href = 'login.html';
+                loginLink.textContent = 'Se Connecter';
+            }
+        });
+    </script>
+
+
+    <!-- Code injected by live-server -->
+
+</body>
+
+</html>

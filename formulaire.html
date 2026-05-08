@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Scene Parisienne</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        .newsletter-form {
+            display: flex;
+            justify-content: center;
+            padding: 5px 0;
+        }
+
+        .container {
+            width: 800px;
+            height: 600px;
+            display: flex;
+            border: 1px solid #555;
+        }
+
+        /* LEFT */
+
+        .left {
+            width: 40%;
+            background: #e5e5e5;
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .left h2 {
+            margin-bottom: 40px;
+        }
+
+        .left img {
+            width: 200px;
+            height: 200px;
+        }
+
+        /* RIGHT */
+
+        .right {
+            width: 60%;
+            padding: 40px;
+            color: white;
+        }
+
+        /* INPUT STYLE */
+
+        .right label {
+            display: block;
+            margin-top: 20px;
+        }
+
+        .right input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid red;
+            padding: 1px;
+            color: white;
+        }
+
+        /* CHECKBOX */
+
+        .checkbox {
+            margin-top: 1px;
+        }
+
+        .checkbox label {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            /* space between checkbox & text */
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+
+        .checkbox input {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* BUTTON */
+
+        button {
+            margin-top: 30px;
+            background: #a00000;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="logo1"><img src="assets/images/logo.webp" alt="" style="width: 130px; height: 70px;"></div>
+        <nav class="nav" id="navMenu">
+            <a href="index.html">Accueil</a>
+            <a href="show.html">Spectacles</a>
+            <a href="theatre.html">Le théâtre</a>
+            <a href="Training.html">Formations</a>
+            <a href="Gallery.html">Galerie</a>
+            <a href="Access.html">Accès</a>
+            <a href="Contact.html">Contact</a>
+            <a href="login.html" id="navLogin" class="btn-login">Se Connecter</a>
+        </nav>
+        <div class="menu-icon" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+
+    <section class="newsletter-form">
+        <div class="container">
+
+            <!-- LEFT -->
+            <div class="left">
+                <h2 style="background-color: #e5e5e5;">Inscription à la newsletter</h2>
+                <img src="assets/images/Black-Logo.jpg" alt="Logo" style="background-color: #e5e5e5;">
+            </div>
+
+            <!-- RIGHT -->
+            <div class="right">
+                <form id="whatsappForm">
+
+                    <label>Nom</label>
+                    <input type="text" id="nom" required>
+
+                    <label>Prénom</label>
+                    <input type="text" id="prenom" required>
+
+                    <label>E-mail</label>
+                    <input type="email" id="email" required>
+
+                    <label>Téléphone</label>
+                    <input type="text" id="phone">
+
+                    <label>Préférence de spectacle</label>
+
+                    <div class="checkbox">
+                        <label><input type="checkbox" value="Humour"> Humour</label>
+                        <label><input type="checkbox" value="Classique"> Classique</label>
+                        <label><input type="checkbox" value="Concert"> Concert</label>
+                        <label><input type="checkbox" value="Enfant"> Enfant</label>
+                        <label><input type="checkbox" value="Stand-up"> Stand-up</label>
+                    </div>
+
+                    <button type="submit">S'INSCRIRE</button>
+
+                </form>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- footer -->
+    <div class="footer-top">
+
+        <div class="line3"></div>
+
+        <div class="footer-row">
+
+            <!-- LEFT -->
+            <div class="footer-col">
+                <div class="logo"><img src="assets/images/logo.webp" alt="image" style="width: 160px; height: 100px;">
+                </div>
+
+                <p>La Scene Parisienne ©Tous droits réservés</p>
+                <p>Mentions légales</p>
+                <p>Site réalisé par MSV et design par Divine Agency</p>
+            </div>
+
+            <!-- CENTER -->
+            <div class="footer-col">
+                <h3>Liens utiles</h3>
+
+                <p>Spectacles</p>
+                <p>Le Théâtre</p>
+                <p>Accès</p>
+                <p>Contact</p>
+            </div>
+
+            <!-- RIGHT -->
+            <div class="footer-col">
+                <h3>La Scène Parisienne</h3>
+
+                <p>Metro 9 Grands Boulevards</p>
+                <p>Metro 7 Le Peletier Ou Cadet 75009 Paris, FR</p>
+                <p>Horaire: 10h30 - 18h30</p>
+                <p>01 42 46 03 63</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- BOTTOM -->
+    <div class="footer-bottom">
+
+        <h3>THÉÂTRES ET PRODUCTEURS ASSOCIÉS</h3>
+
+        <p>
+            The Théâtre de la Scène Parisienne is a member of Théâtres et Producteurs Associés, and is therefore part of
+            a strict professional ethic: respect for the rights of authors and performing artists, respect for the
+            general conditions of welcoming the public,
+            preservation of a leading architectural and cultural heritage.
+        </p>
+
+        <a href="https://tpa.fr/">https://tpa.fr/</a>
+
+        <img src="assets/images/logo_tpa.fr_.svg" alt="TPA Logo">
+
+    </div>
+
+
+
+    <script src="assets/js/script.js"></script>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="assets/js/firebase-config.js"></script>
+
+    <script>
+        // Check if user is logged in
+        firebase.auth().onAuthStateChanged((user) => {
+            const loginLink = document.getElementById('navLogin');
+            if (user) {
+                loginLink.href = 'admin.html';
+                loginLink.textContent = 'Se Connecter';
+            } else {
+                loginLink.href = 'login.html';
+                loginLink.textContent = 'Se Connecter';
+            }
+        });
+    </script>
+
+    <script>
+        document.getElementById("whatsappForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            let nom = document.getElementById("nom").value;
+            let prenom = document.getElementById("prenom").value;
+            let email = document.getElementById("email").value;
+            let phone = document.getElementById("phone").value;
+
+            let prefs = [];
+            document.querySelectorAll(".checkbox input:checked").forEach(el => {
+                prefs.push(el.value);
+            });
+
+            let message = `Newsletter Registration:%0A
+Nom: ${nom}%0A
+Prénom: ${prenom}%0A
+Email: ${email}%0A
+Téléphone: ${phone}%0A
+Préférence: ${prefs.join(", ")}`;
+
+            let whatsappNumber = "91XXXXXXXXXX"; // your number with country code
+
+            let url = `https://wa.me/${whatsappNumber}?text=${message}`;
+
+            window.open(url, "_blank");
+        });
+    </script>
+    <!-- Code injected by live-server -->
+
+</body>
+
+</html>

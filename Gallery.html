@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Scene Parisienne</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        /* SECTION */
+
+        .gallery-section {
+            background: #000;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        /* TITLE */
+
+        .gallery-section h2 {
+            color: #fff;
+            font-size: 40px;
+            margin-bottom: 40px;
+            letter-spacing: 2px;
+        }
+
+        /* GRID */
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        /* IMAGES */
+
+        .gallery-grid img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            transition: 0.4s;
+            cursor: pointer;
+        }
+
+        /* HOVER EFFECT */
+
+        .gallery-grid img:hover {
+            transform: scale(1.05);
+            opacity: 0.8;
+        }
+
+        /* VIDEO BOX */
+
+        .video-box {
+            margin-top: 60px;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* VIDEO STYLE */
+
+        .video-box video {
+            width: 80%;
+            max-width: 900px;
+            border: 2px solid #8b1e1e;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 1024px) {
+            .gallery-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .gallery-section h2 {
+                font-size: 32px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 0 20px;
+            }
+
+            .gallery-grid img {
+                height: 150px;
+            }
+
+            .video-box video {
+                width: 95%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid img {
+                height: 200px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="logo1"><img src="assets/images/logo.webp" alt="" style="width: 130px; height: 70px;"></div>
+        <nav class="nav" id="navMenu">
+            <a href="index.html">Accueil</a>
+            <a href="show.html">Spectacles</a>
+            <a href="theatre.html">Le théâtre</a>
+            <a href="Training.html">Formations</a>
+            <a href="Gallery.html" class="active">Galerie</a>
+            <a href="Access.html">Accès</a>
+            <a href="Contact.html">Contact</a>
+            <a href="login.html" id="navLogin" class="btn-login">Se Connecter</a>
+        </nav>
+        <div class="menu-icon" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+
+    <section class="gallery-section">
+
+        <h2>Galerie</h2>
+
+        <!-- Image Grid -->
+        <div class="gallery-grid">
+
+            <img src="assets/images/ga 1.webp">
+            <img src="assets/images/ga 2.webp">
+            <img src="assets/images/ga 3.webp">
+            <img src="assets/images/ga 4.webp">
+
+            <img src="assets/images/ga 5.webp">
+            <img src="assets/images/ga 6.webp">
+            <img src="assets/images/ga 7.webp">
+            <img src="assets/images/ga 8.webp">
+
+            <img src="assets/images/ga 9.webp">
+            <img src="assets/images/ga 10.webp">
+            <img src="assets/images/ga 11.webp">
+            <img src="assets/images/ga 12.webp">
+
+            <img src="assets/images/ga 13.webp">
+            <img src="assets/images/ga 14.webp">
+            <img src="assets/images/ga 15.webp">
+            <img src="assets/images/ga 16.webp">
+
+            <img src="assets/images/ga 17.jpg">
+            <img src="assets/images/ga 18.jpg">
+            <img src="assets/images/ga 1.webp">
+            <img src="assets/images/ga 10.webp">
+
+        </div>
+
+        <!-- Video -->
+        <div class="video-box">
+            <video controls>
+                <source src="/assets/images/video.mp4" type="video/mp4">
+            </video>
+        </div>
+
+    </section>
+
+
+
+
+    <!-- footer -->
+    <div class="footer-top">
+
+        <div class="line3"></div>
+
+        <div class="footer-row">
+
+            <!-- LEFT -->
+            <div class="footer-col">
+                <div class="logo"><img src="assets/images/logo.webp" alt="image" style="width: 160px; height: 100px;">
+                </div>
+
+                <p>La Scene Parisienne ©Tous droits réservés</p>
+                <p>Mentions légales</p>
+                <p>Site réalisé par MSV et design par Divine Agency</p>
+            </div>
+
+            <!-- CENTER -->
+            <div class="footer-col">
+                <h3>Liens utiles</h3>
+
+                <p>Spectacles</p>
+                <p>Le Théâtre</p>
+                <p>Accès</p>
+                <p>Contact</p>
+            </div>
+
+            <!-- RIGHT -->
+            <div class="footer-col">
+                <h3>La Scène Parisienne</h3>
+
+                <p>Metro 9 Grands Boulevards</p>
+                <p>Metro 7 Le Peletier Ou Cadet 75009 Paris, FR</p>
+                <p>Horaire: 10h30 - 18h30</p>
+                <p>01 42 46 03 63</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- BOTTOM -->
+    <div class="footer-bottom">
+
+        <h3>THÉÂTRES ET PRODUCTEURS ASSOCIÉS</h3>
+
+        <p>
+            The Théâtre de la Scène Parisienne is a member of Théâtres et Producteurs Associés, and is therefore part of
+            a strict professional ethic: respect for the rights of authors and performing artists, respect for the
+            general conditions of welcoming the public,
+            preservation of a leading architectural and cultural heritage.
+        </p>
+
+        <a href="https://tpa.fr/">https://tpa.fr/</a>
+
+        <img src="assets/images/logo_tpa.fr_.svg" alt="TPA Logo">
+
+    </div>
+
+
+
+    <script src="assets/js/script.js"></script>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="assets/js/firebase-config.js"></script>
+
+    <script>
+        // Check if user is logged in
+        firebase.auth().onAuthStateChanged((user) => {
+            const loginLink = document.getElementById('navLogin');
+            if (user) {
+                loginLink.href = 'admin.html';
+                loginLink.textContent = 'Se Connecter';
+            } else {
+                loginLink.href = 'login.html';
+                loginLink.textContent = 'Se Connecter';
+            }
+        });
+    </script>
+
+
+    <!-- Code injected by live-server -->
+
+</body>
+
+</html>

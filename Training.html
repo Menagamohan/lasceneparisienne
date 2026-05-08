@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Scene Parisienne</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        /* GLOBAL */
+
+        body {
+            margin: 0;
+            background: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+        }
+
+        /* TOP SECTION */
+
+        .training-section {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .top-image img {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+            opacity: 0.7;
+        }
+
+        .training-content h1 {
+            font-size: 48px;
+            margin-top: 20px;
+        }
+
+        .sub-text {
+            font-size: 14px;
+            color: #ccc;
+        }
+
+        .logo-box img {
+            width: 200px;
+            margin: 20px 0;
+        }
+
+        .quote {
+            font-size: 26px;
+            font-weight: 500;
+            margin: 20px 0;
+        }
+
+        .desc {
+            max-width: 700px;
+            margin: auto;
+            font-size: 14px;
+            color: #ccc;
+        }
+
+        /* TITLE */
+
+        .main-title {
+            text-align: center;
+            font-size: 40px;
+            margin-top: 50px;
+        }
+
+        .no-data {
+            text-align: center;
+            font-size: 12px;
+            color: #aaa;
+        }
+
+        /* TWO COLUMN */
+
+        .container {
+            max-width: 1100px;
+            margin: 50px auto;
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+        }
+
+        .column {
+            width: 45%;
+        }
+
+        .column h2 {
+            display: none;
+            /* Hide headings to match screenshot */
+        }
+
+        /* ACCORDION */
+
+        .accordion {
+            border-bottom: 1px solid #444;
+            margin-bottom: 5px;
+        }
+
+        .accordion-header {
+            padding: 5px 0;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            position: relative;
+            color: #fff;
+            display: flex;
+            align-items: center;
+        }
+
+        /* arrow icon */
+
+        .accordion-header::before {
+            content: "▶";
+            margin-right: 12px;
+            font-size: 8px;
+            transition: transform 0.3s;
+        }
+
+        .accordion.active .accordion-header::before {
+            transform: rotate(90deg);
+        }
+
+        /* hidden content */
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+            font-size: 13px;
+            color: #ccc;
+            line-height: 3.6;
+            padding: 10px 10px 10px 20px;
+        }
+
+        /* ACTIVE */
+
+        .accordion.active .accordion-content {
+            max-height: 500px;
+            padding: 10px 0;
+        }
+
+        /* HOVER EFFECT */
+
+        .accordion-header:hover {
+            color: red;
+        }
+
+        /* BOTTOM SECTION */
+
+        section.container {
+            margin-top: 60px;
+        }
+
+        .box {
+            width: 50%;
+        }
+
+        .box p {
+            color: #ccc;
+            font-size: 14px;
+        }
+
+        .box ul {
+            color: #ccc;
+            font-size: 14px;
+        }
+
+        /* HR */
+
+        hr {
+            border: none;
+            border-top: 1px solid #444;
+            margin: 15px 0;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 1024px) {
+            .container {
+                flex-direction: column;
+                padding: 30px 40px;
+                gap: 30px;
+            }
+
+            .column,
+            .box {
+                width: 100%;
+            }
+
+            .training-content h1 {
+                font-size: 36px;
+            }
+
+            .quote {
+                font-size: 22px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            .main-title {
+                font-size: 32px;
+            }
+
+            .logo-box img {
+                width: 160px;
+            }
+
+            .top-image img {
+                max-height: 200px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="logo1"><img src="assets/images/logo.webp" alt="" style="width: 130px; height: 70px;"></div>
+        <nav class="nav" id="navMenu">
+            <a href="index.html">Accueil</a>
+            <a href="show.html">Spectacles</a>
+            <a href="theatre.html">Le théâtre</a>
+            <a href="Training.html" class="active">Formations</a>
+            <a href="Gallery.html">Galerie</a>
+            <a href="Access.html">Accès</a>
+            <a href="Contact.html">Contact</a>
+            <a href="login.html" id="navLogin" class="btn-login">Se Connecter</a>
+        </nav>
+        <div class="menu-icon" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+
+
+
+
+
+
+    <section class="training-section">
+
+        <!-- Top Image -->
+        <div class="top-image">
+            <img src="assets/images/background 3.png" alt="banner">
+        </div>
+
+        <!-- Content -->
+        <div class="training-content">
+
+            <h1>Formations</h1>
+
+            <p class="sub-text">
+                Notre organisme a reçu la certification QUALIOPI le 3 novembre 2021, délivrée par l'AFNOR.
+            </p>
+
+            <!-- Logo -->
+            <div class="logo-box">
+                <img src="assets/images/qualiopi.png" alt="Qualiopi">
+            </div>
+
+            <!-- Quote -->
+            <h2 class="quote">
+                “J’apprends d’abord à désapprendre puis à donner envie à chacun de se révéler”.
+            </h2>
+
+            <!-- Description -->
+            <p class="desc">
+                Situé dans le théâtre de la Divine Comédie et de La Scène Parisienne, notre centre propose des
+                formations sur le spectacle vivant et accueille des écoles de théâtre. Notre catalogue s’enrichit chaque
+                année de nouvelles propositions. Inscrivez-vous à notre newsletter ou écrivez-nous.
+            </p>
+
+        </div>
+
+    </section>
+
+    <h1 class="main-title">Nos stages</h1>
+    <p class="no-data">No data was found</p>
+
+    <div class="container">
+
+        <!-- LEFT -->
+        <div class="column">
+            <h2>Information</h2>
+
+            <div class="accordion">
+                <div class="accordion-header">
+                    <!-- <span class="arrow">▶</span> -->
+                    Prérequis
+                </div>
+                <div class="accordion-content">
+                    Aucun pré-requis n’est demandé pour intégrer le cursus Music Hall <br><br> Pour intégrer le cursus «
+                    Manager by…. », il faut avoir le statut de manager
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header">
+                    <!-- <span class="arrow">▶</span> -->
+                    Objectifs
+                </div>
+                <div class="accordion-content">
+                    Adapter et développer les compétences.<br><br> Consulter le programme de chaque stage
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header">
+                    <!-- <span class="arrow">▶</span> -->
+                    Durée des stages
+                </div>
+                <div class="accordion-content">
+                    Tous nos stages se déroulent sur au moins 1 journée de 7 heures, les durées sont clairement
+                    indiquées sur chaque programme.
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header">
+                    <!-- <span class="arrow">▶</span> -->
+                    Modalités et Délai d'accès
+                </div>
+                <div class="accordion-content">
+                    Inscriptions aux stages possibles jusqu’à 15 jours avant la date du stage.<br><br> – maximum : 20
+                    <br> – minimum : 6
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header">
+                    <!-- <span class="arrow">▶</span> -->
+                    Tarifs 2025
+                </div>
+                <div class="accordion-content">
+                    Les tarifs sont indiqués sur chaque programme<br><br> Consulter le programme de chaque stage
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header">
+                    <!-- <span class="arrow">▶</span> -->
+                    Méthodes et moyens mobilisés
+                </div>
+                <div class="accordion-content">
+                    Présentiel<br> 1 formateur qualifié<br> 1 collaborateur présent en permanence dans les locaux :
+                    installation de la salle, accueil des stagiaires, encadrement de la journée<br> Démonstrative
+
+                    <br> Explication et démonstration par le formateur des techniques d’apprentissage<br> Active
+
+                    <br> Mise en application par les stagiaires sur modèles ou entre eux<br> Participative
+
+                    <br> Echanges continus entre le formateur et les stagiaires<br> Encadrement du stage<br> Equipe
+                    administrative <br>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header">
+                    <!-- <span class="arrow">▶</span> -->
+                    Equipement des salles
+                </div>
+                <div class="accordion-content">
+                    Locaux adaptés à la pratique : salons d’application<br> Vidéo-projecteur
+                    <br> Paperboard
+                    <br>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header">
+                    <!-- <span class="arrow">▶</span> -->
+                    Modalités d'évaluation
+                </div>
+                <div class="accordion-content">
+                    Jury de sélection pour l’accession aux modules de l’école formant au certificat d’Artiste/interprète
+                    de music-hall<br> Tour de table réalisé par le formateur en début de stage pour auto-évaluation.<br>
+                    Fiche d’évaluation de fin de
+                    stage par le formateur.<br> Evaluation « à chaud » des stagiaires au cours de la réalisation des
+                    exercices de mise en pratique.<br> Bilan et synthèse de la journée<br> Attestation de fin de
+                    formation.<br> Fiche d’évaluation à froid
+                    envoyé 3 mois après le stage<br>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header">
+                    <!-- <span class="arrow">▶</span> -->
+                    Nature des stages
+                </div>
+                <div class="accordion-content">
+                    Jury de sélection pour l’accession aux modules de l’école formant au certificat d’Artiste/interprète
+                    de mNos stages de formation entrent dans la catégorie des actions prévues à l’article L 6313-1 du
+                    code du travail, action d’acquisition, d’entretien ou
+                    de perfectionnement des connaissances., c’est à dire Plan de développement des compétences
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header">
+                    <!-- <span class="arrow">▶</span> -->
+                    Objectifs
+                </div>
+                <div class="accordion-content">
+                    Le plan de développement des compétences vise à :<br> assurer l’adaptation de vos salariés à leur
+                    poste de travail,<br> maintenir leur capacité à occuper un emploi,<br> favoriser leur montée en
+                    compétences.<br> Il regroupe l’ensemble
+                    des actions de formation, de bilan de compétences et de la VAE organisées par l’employeur au
+                    bénéfice de ses salariés.
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header">
+                    <!-- <span class="arrow">▶</span> -->
+                    Publics
+                </div>
+                <div class="accordion-content">
+                    Tout public.
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header">
+                    <!-- <span class="arrow">▶</span> -->
+                    Contact et inscription
+                </div>
+                <div class="accordion-content">
+                    Pour toutes informations et pour vous inscrire à nos stages, contactez LSP<br> FORMATION<br>
+                    Téléphone : 06 63 84 16 08 ou email : lspholding2019@gmail.com
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header">
+                    <!-- <span class="arrow">▶</span> -->
+                    Accessibilité
+                </div>
+                <div class="accordion-content">
+                    La plupart de nos locaux sont accessibles aux personnes en situation de handicap et mobilité
+                    réduite<br> Les personnes en situation de handicap souhaitant suivre une formation devront se
+                    manifester en amont (au moins 15 jours avant)
+                    pour nous permettre de vous confirmer que la salle de réunion est ou non accessible dans les
+                    meilleures conditions.<br> Chaque situation étant unique, nous vous proposons un échange
+                    téléphonique au 06 63 84 16 08<br> Toute question
+                    sur ce point pourra être traitée par Mme DEPARTOUT référente Handicap.
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header">
+                    <!-- <span class="arrow">▶</span> -->
+                    Règlement intérieur
+                </div>
+                <div class="accordion-content">
+                    Vous pouvez consulter ici le règlement intérieur applicable à tous les stages.
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header">
+                    <!-- <span class="arrow">▶</span> -->
+                    C.G.V
+                </div>
+                <div class="accordion-content">
+                    Vous trouverez ici nos conditions générales de vente.<br> Tout renseignement peut être obtenu auprès
+                    du pôle administratif au 06 63 84 16 08<br> CGV en vigueur pour l’année 2024-2025
+                </div>
+            </div>
+
+        </div>
+
+        <!-- RIGHT -->
+        <div class="column">
+            <h2>Nos engagements</h2>
+
+            <div class="accordion">
+                <div class="accordion-header">
+
+                    ORGANISME CERTIFIE QUALITÉ QUALIOPI
+                </div>
+                <div class="accordion-content">
+                    Depuis le 3 novembre 2021<br><br> Cette certification démontre le respect d’un processus qualité,
+                    dans le respect du référentiel Qualiopi.
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header">
+
+                    PROFESSIONNALISME DES FORMATEURS
+                </div>
+                <div class="accordion-content">
+                    Notre centre, LSP FORMATION, dispose d’un important réseau de contacts pour choisir les meilleurs
+                    formateurs, experts dans leur domaine. Toujours attentifs à vos suggestions et vos attentes, nous
+                    leur renouvelons notre confiance lorsque vous les plébiscitez.
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header">
+
+                    PROGRAMMES ADAPTÉS A VOS BESOINS
+                </div>
+                <div class="accordion-content">
+                    Les thèmes sont choisis par des professionnels en activité. Les programmes proposés par les
+                    formateurs sont validés par la Commission Formation de LSP FORMATION pour répondre à vos besoins,
+                    vos attentes et celles de vos salariés.
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header">
+
+                    AMBIANCE CONVIVIALE
+                </div>
+                <div class="accordion-content">
+                    Les stages se déroulent toujours en petit groupe de 20 personnes maximum. Un membre de LSP FORMATION
+                    est toujours présent sur le lieu du stage et pendant toute la durée du stage pour vous accueillir et
+                    garantir le bon déroulé de la journée. On apprend
+                    mieux dans un environnement positif !
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header">
+
+                    PROXIMITE DES LIEUX DE FORMATION
+                </div>
+                <div class="accordion-content">
+                    LSP FORMATION est idéalement situé dans le 9éeme arrondissement de Paris, à proximité de stations de
+                    métro (3), de station de bus, parking Belib a 5 minutes.
+                </div>
+            </div>
+
+
+            <div class="accordion">
+                <div class="accordion-header">
+
+                    CONSEIL, ORGANISATION ET SUIVI
+                </div>
+                <div class="accordion-content">
+                    Du conseil au suivi et à la gestion administrative et financière de votre dossier, le service
+                    formation gère toute l’organisation du stage, de sa conception à sa clôture.<br> Avant, pendant et
+                    après le stage, nous nous occupons de
+                    tout.
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header">
+
+                    QUALITE DES SUPPORTS ET EQUIPEMENTS
+                </div>
+                <div class="accordion-content">
+                    LSP FORMATION fournit aux stagiaires des supports de formation adaptés. Selon la formation, chaque
+                    stagiaire dispose du meilleur matériel pour travailler dans les meilleures conditions possibles.
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header">
+
+                    CONFORT DES LOCAUX
+                </div>
+                <div class="accordion-content">
+                    95% de nos stages sont organisés dans des locaux accessibles y compris aux PMR, confortables,
+                    spacieux et équipés pour exercer dans de bonnes conditions.
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header">
+
+                    CONFIANCE ET CERTIFICATION
+                </div>
+                <div class="accordion-content">
+                    LSP FORMATION est certifié qualité Qualiopi depuis 2021.
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header">
+
+                    CONSIGNES SANITAIRES - en cas de pandémie
+                </div>
+                <div class="accordion-content">
+                    Toutes les règles légales en cas de pandémie sont et seront respectées et<br> appliquées.<br><br>
+                    Matériel à prévoir : masque et gel hydroalcoolique.
+                </div>
+            </div>
+
+
+
+
+        </div>
+
+    </div>
+
+    <section class="container">
+
+        <!-- LEFT -->
+        <div class="box">
+            <h2 style="color: red; font-size: 40px; margin-bottom: 20px; font-family: Arial, sans-serif;">
+                Accueil des PMR
+            </h2>
+            <hr>
+
+            <p>
+                Les locaux de formation sont accessibles aux PMR.
+            </p>
+
+            <p>
+                Toutes les situations étant différentes, si vous êtes en situation de handicap, <br> avant de vous
+                inscrire à un stage merci de nous contacter au 06 63 84 16 08 <br> pour connaître les possibilités
+                d’adaptation du stage
+            </p>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="box">
+            <h2 style="color: red; font-size: 40px; margin-bottom: 20px; font-family: Arial, sans-serif;">Statistiques
+            </h2>
+            <hr>
+
+            <p>Formation « manager by… »</p>
+
+            <ul>
+                <li>Taux de satisfaction : 100%</li>
+                <li>Evolution du nombre de participants : +40%</li>
+            </ul>
+        </div>
+
+    </section>
+
+    <!-- footer -->
+    <div class="footer-top">
+
+        <div class="line3"></div>
+
+        <div class="footer-row">
+
+            <!-- LEFT -->
+            <div class="footer-col">
+                <div class="logo"><img src="assets/images/logo.webp" alt="image" style="width: 160px; height: 100px;">
+                </div>
+
+                <p>La Scene Parisienne ©Tous droits réservés</p>
+                <p>Mentions légales</p>
+                <p>Site réalisé par MSV et design par Divine Agency</p>
+            </div>
+
+            <!-- CENTER -->
+            <div class="footer-col">
+                <h3>Liens utiles</h3>
+
+                <p>Spectacles</p>
+                <p>Le Théâtre</p>
+                <p>Accès</p>
+                <p>Contact</p>
+            </div>
+
+            <!-- RIGHT -->
+            <div class="footer-col">
+                <h3>La Scène Parisienne</h3>
+
+                <p>Metro 9 Grands Boulevards</p>
+                <p>Metro 7 Le Peletier Ou Cadet 75009 Paris, FR</p>
+                <p>Horaire: 10h30 - 18h30</p>
+                <p>01 42 46 03 63</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- BOTTOM -->
+    <div class="footer-bottom">
+
+        <h3>THÉÂTRES ET PRODUCTEURS ASSOCIÉS</h3>
+
+        <p>
+            The Théâtre de la Scène Parisienne is a member of Théâtres et Producteurs Associés, and is therefore part of
+            a strict professional ethic: respect for the rights of authors and performing artists, respect for the
+            general conditions of welcoming the public,
+            preservation of a leading architectural and cultural heritage.
+        </p>
+
+        <a href="https://tpa.fr/">https://tpa.fr/</a>
+
+        <img src="assets/images/logo_tpa.fr_.svg" alt="TPA Logo">
+
+    </div>
+
+
+    <script src="assets/js/script.js"></script>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="assets/js/firebase-config.js"></script>
+
+    <script>
+        // Check if user is logged in
+        firebase.auth().onAuthStateChanged((user) => {
+            const loginLink = document.getElementById('navLogin');
+            if (user) {
+                loginLink.href = 'admin.html';
+                loginLink.textContent = 'Se Connecter';
+            } else {
+                loginLink.href = 'login.html';
+                loginLink.textContent = 'Se Connecter';
+            }
+        });
+    </script>
+
+    <script>
+        document.querySelectorAll(".accordion-header").forEach(header => {
+            header.addEventListener("click", () => {
+                header.parentElement.classList.toggle("active");
+            });
+        });
+    </script>
+    <!-- Code injected by live-server -->
+
+</body>
+
+</html>

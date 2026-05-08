@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Scene Parisienne</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        /* ===== GLOBAL ===== */
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #1a0000, #000);
+            color: #fff;
+        }
+
+        /* ===== HEADER ===== */
+
+        .contact-header {
+            text-align: center;
+            padding: 80px 20px 40px;
+        }
+
+        .contact-header h1 {
+            font-size: 60px;
+            margin-bottom: 10px;
+        }
+
+        .contact-header h3 {
+            font-size: 26px;
+            font-weight: normal;
+        }
+
+        .contact-header p {
+            color: #ccc;
+        }
+
+        /* ===== MAIN SECTION ===== */
+
+        .contact-section {
+            display: flex;
+            justify-content: space-between;
+            padding: 60px 80px;
+            gap: 60px;
+        }
+
+        /* ===== LEFT SIDE ===== */
+
+        .contact-left {
+            flex: 1;
+        }
+
+        .contact-left h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .contact-left p {
+            color: #ccc;
+            margin: 8px 0;
+        }
+
+        .contact-left .space {
+            margin-top: 25px;
+        }
+
+        .contact-left .location {
+            margin-top: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* ===== RIGHT FORM ===== */
+
+        .contact-right {
+            flex: 1;
+        }
+
+        /* FORM GROUP */
+
+        .form-group {
+            margin-bottom: 30px;
+        }
+
+        /* LABEL */
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .form-group label span {
+            color: red;
+        }
+
+        /* INPUT */
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #666;
+            padding: 10px 0;
+            color: #fff;
+            outline: none;
+            font-size: 14px;
+        }
+
+        /* TEXTAREA */
+
+        .form-group textarea {
+            height: 80px;
+            resize: none;
+        }
+
+        /* BUTTON */
+
+        .submit-btn {
+            margin-top: 30px;
+        }
+
+        .submit-btn button {
+            padding: 12px 30px;
+            border-radius: 25px;
+            border: none;
+            background: #eee;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .submit-btn button:hover {
+            background: #ccc;
+        }
+
+        /* ===== RESPONSIVE ===== */
+
+        @media (max-width: 1024px) {
+            .contact-section {
+                flex-direction: column;
+                padding: 40px;
+                gap: 40px;
+            }
+
+            .contact-header h1 {
+                font-size: 48px;
+            }
+
+            .contact-header h3 {
+                font-size: 22px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .contact-section {
+                padding: 20px;
+            }
+
+            .contact-header h1 {
+                font-size: 36px;
+            }
+
+            .contact-left h2 {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="logo1"><img src="assets/images/logo.webp" alt="" style="width: 130px; height: 70px;"></div>
+        <nav class="nav" id="navMenu">
+            <a href="index.html">Accueil</a>
+            <a href="show.html">Spectacles</a>
+            <a href="theatre.html">Le théâtre</a>
+            <a href="Training.html">Formations</a>
+            <a href="Gallery.html">Galerie</a>
+            <a href="Access.html">Accès</a>
+            <a href="Contact.html" class="active">Contact</a>
+            <a href="login.html" id="navLogin" class="btn-login">Se Connecter</a>
+        </nav>
+        <div class="menu-icon" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+
+    <!-- HEADER -->
+    <section class="contact-header">
+        <h1>Contact</h1>
+        <h3>Vous avez des questions ?</h3>
+        <p>Appelez-nous ou remplissez notre formulaire ci-dessous.</p>
+    </section>
+
+    <!-- MAIN SECTION -->
+    <section class="contact-section">
+
+        <!-- LEFT SIDE -->
+        <div class="contact-left">
+            <h2>La Scene Parisienne</h2>
+
+            <p>34 rue richer</p>
+            <p>75009 Paris, France</p>
+
+            <p>prog.lasceneparisienne@gmail.com</p>
+
+            <p>Téléphone de la billetterie</p>
+            <p>01 42 46 03 63</p>
+
+            <p>📍 Comment accéder à La Scene Parisienne</p>
+        </div>
+
+        <!-- RIGHT SIDE FORM -->
+        <div class="contact-right">
+
+            <form>
+
+                <div class="form-group">
+                    <label>Nom *</label>
+                    <input type="text" name="nom" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Prénom *</label>
+                    <input type="text" name="prenom" required>
+                </div>
+
+                <div class="form-group">
+                    <label>E-mail *</label>
+                    <input type="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Objet du message *</label>
+                    <input type="text" name="subject" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Message *</label>
+                    <textarea name="message" rows="4" required></textarea>
+                </div>
+
+                <div class="submit-btn">
+                    <button type="submit">ENVOYER</button>
+                </div>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- footer -->
+    <div class="footer-top">
+
+        <div class="line3"></div>
+
+        <div class="footer-row">
+
+            <!-- LEFT -->
+            <div class="footer-col">
+                <div class="logo"><img src="assets/images/logo.webp" alt="image" style="width: 160px; height: 100px;">
+                </div>
+
+                <p>La Scene Parisienne ©Tous droits réservés</p>
+                <p>Mentions légales</p>
+                <p>Site réalisé par MSV et design par Divine Agency</p>
+            </div>
+
+            <!-- CENTER -->
+            <div class="footer-col">
+                <h3>Liens utiles</h3>
+
+                <p>Spectacles</p>
+                <p>Le Théâtre</p>
+                <p>Accès</p>
+                <p>Contact</p>
+            </div>
+
+            <!-- RIGHT -->
+            <div class="footer-col">
+                <h3>La Scène Parisienne</h3>
+
+                <p>Metro 9 Grands Boulevards</p>
+                <p>Metro 7 Le Peletier Ou Cadet 75009 Paris, FR</p>
+                <p>Horaire: 10h30 - 18h30</p>
+                <p>01 42 46 03 63</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- BOTTOM -->
+    <div class="footer-bottom">
+
+        <h3>THÉÂTRES ET PRODUCTEURS ASSOCIÉS</h3>
+
+        <p>
+            The Théâtre de la Scène Parisienne is a member of Théâtres et Producteurs Associés, and is therefore part of
+            a strict professional ethic: respect for the rights of authors and performing artists, respect for the
+            general conditions of welcoming the public,
+            preservation of a leading architectural and cultural heritage.
+        </p>
+
+        <a href="https://tpa.fr/">https://tpa.fr/</a>
+
+        <img src="assets/images/logo_tpa.fr_.svg" alt="TPA Logo">
+
+    </div>
+
+
+
+    <script src="assets/js/script.js"></script>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="assets/js/firebase-config.js"></script>
+
+    <script>
+        // Check if user is logged in
+        firebase.auth().onAuthStateChanged((user) => {
+            const loginLink = document.getElementById('navLogin');
+            if (user) {
+                loginLink.href = 'admin.html';
+                loginLink.textContent = 'Se Connecter';
+            } else {
+                loginLink.href = 'login.html';
+                loginLink.textContent = 'Se Connecter';
+            }
+        });
+    </script>
+
+
+    <!-- Code injected by live-server -->
+
+</body>
+
+</html>

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin - La Scène Parisienne</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
+    <style>
+        body { background:#000; color:#fff; font-family:Arial,sans-serif; margin:0; padding:0; }
+        .admin-header {
+            background:#111; padding:20px 50px;
+            display:flex; justify-content:space-between; align-items:center;
+            border-bottom:1px solid #333; position:sticky; top:0; z-index:1000;
+        }
+        .admin-header h1 { font-size:20px; letter-spacing:2px; margin:0; }
+        .logout-btn { background:transparent; color:#ff4d4d; border:1px solid #ff4d4d; padding:8px 20px; border-radius:20px; cursor:pointer; transition:0.3s; }
+        .logout-btn:hover { background:#ff4d4d; color:#fff; }
+        .admin-container { max-width:1200px; margin:40px auto; padding:0 30px; }
+        .section-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:30px; }
+        .add-btn { background:#fff; color:#000; border:none; padding:10px 25px; border-radius:25px; font-weight:bold; cursor:pointer; transition:0.3s; }
+        .add-btn:hover { background:#e6e6e6; transform:scale(1.05); }
+        .shows-list { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:20px; }
+        .admin-card { background:#111; border:1px solid #333; border-radius:12px; padding:20px; display:flex; flex-direction:column; gap:15px; }
+        .admin-card img { width:100%; height:180px; object-fit:cover; border-radius:8px; }
+        .admin-card h3 { margin:0; font-size:18px; }
+        .admin-card .card-info { font-size:14px; color:#888; }
+        .card-actions { display:flex; gap:10px; margin-top:auto; }
+        .card-actions button { flex:1; padding:8px; border-radius:6px; cursor:pointer; font-size:13px; transition:0.3s; }
+        .edit-btn { background:#222; color:#fff; border:1px solid #444; }
+        .edit-btn:hover { background:#333; }
+        .delete-btn { background:transparent; color:#ff4d4d; border:1px solid #ff4d4d; }
+        .delete-btn:hover { background:#ff4d4d; color:#fff; }
+        .modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:2000; justify-content:center; align-items:center; }
+        .modal-content { background:#111; padding:40px; border-radius:15px; width:100%; max-width:600px; max-height:90vh; overflow-y:auto; border:1px solid #333; }
+        .modal-content h2 { margin-top:0; margin-bottom:25px; }
+        .form-group { margin-bottom:20px; }
+        .form-group label { display:block; margin-bottom:8px; color:#aaa; font-size:14px; }
+        .form-group input, .form-group textarea, .form-group select { width:100%; padding:12px; background:#222; border:1px solid #444; color:#fff; border-radius:8px; box-sizing:border-box; }
+        .modal-btns { display:flex; gap:15px; margin-top:30px; }
+        .save-btn { flex:2; background:#fff; color:#000; border:none; padding:12px; border-radius:8px; font-weight:bold; cursor:pointer; }
+        .save-btn:disabled { background:#555; color:#999; cursor:not-allowed; }
+        .cancel-btn { flex:1; background:transparent; color:#fff; border:1px solid #444; padding:12px; border-radius:8px; cursor:pointer; }
+        .img-preview { width:100%; height:140px; object-fit:cover; border-radius:8px; margin-top:8px; display:none; border:1px solid #444; }
+        #loadingOverlay { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.75); z-index:9999; justify-content:center; align-items:center; flex-direction:column; gap:15px; }
+        #loadingOverlay p { color:#fff; font-size:18px; margin:0; }
+        .spinner { width:48px; height:48px; border:4px solid #333; border-top:4px solid #fff; border-radius:50%; animation:spin 0.8s linear infinite; }
+        @keyframes spin { to { transform:rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+<div id="loadingOverlay">
+    <div class="spinner"></div>
+    <p id="loadingText">Please wait...</p>
+</div>
+
+<header class="admin-header">
+    <h1>ADMINISTRATION PANEL</h1>
+    <div>
+        <span style="margin-right:20px;color:#888;">mb.lasceneparisienne@gmail.com</span>
+        <button class="logout-btn" onclick="logout()">LOG OUT</button>
+    </div>
+</header>
+
+<div class="admin-container">
+    <div class="section-header">
+        <h2>Show Management</h2>
+        <button class="add-btn" onclick="openModal()">+ ADD A SHOW</button>
+    </div>
+    <div id="showsList" class="shows-list"><p>Loading shows...</p></div>
+</div>
+
+<div id="showModal" class="modal">
+    <div class="modal-content">
+        <h2 id="modalTitle">Add a Show</h2>
+        <form id="showForm">
+            <input type="hidden" id="showId">
+            <div class="form-group"><label>Title</label><input type="text" id="title" required></div>
+            <div class="form-group">
+                <label>Dates (Select range from calendar)</label>
+                <input type="text" id="date" placeholder="Click to select dates..." required>
+            </div>
+            <div class="form-group">
+                <label>Type</label>
+                <select id="type" required>
+                    <option value="Comédie">Comédie</option>
+                    <option value="Comédies Musicales">Comédies Musicales</option>
+                    <option value="Concert">Concert</option>
+                    <option value="Drame">Drame</option>
+                    <option value="Jeune public">Jeune public</option>
+                    <option value="One man show">One man show</option>
+                    <option value="One woman show">One woman show</option>
+                    <option value="Seul en scène">Seul en scène</option>
+                    <option value="Spectacle Musical">Spectacle Musical</option>
+                    <option value="Spectacle enfant">Spectacle enfant</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label id="imageLabel">Image (Upload file)</label>
+                <input type="file" id="imageFile" accept="image/*">
+                <img id="imgPreview" class="img-preview" alt="Preview">
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:15px;">
+                <div class="form-group"><label>Schedule (e.g., Friday 8:15 PM)</label><input type="text" id="time"></div>
+                <div class="form-group"><label>Room (e.g., 1)</label><input type="text" id="Salle"></div>
+                <div class="form-group"><label>Price (e.g., 18 euros)</label><input type="text" id="price"></div>
+                <div class="form-group"><label>Duration (e.g., 45 min)</label><input type="text" id="duration"></div>
+            </div>
+            <div class="form-group">
+                <label>Description (Use &lt;br&gt; for line breaks)</label>
+                <textarea id="desc" rows="4" required></textarea>
+            </div>
+            <div class="modal-btns">
+                <button type="button" class="cancel-btn" onclick="closeModal()">CANCEL</button>
+                <button type="submit" class="save-btn" id="saveBtn">SAVE</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+    // Railway hosts both static files and API — relative paths work everywhere
+    const API = '';
+
+    const TOKEN = localStorage.getItem('adminToken');
+    if (!TOKEN) window.location.href = 'login.html';
+
+    function apiCall(url, options = {}) {
+        return fetch(API + url, {
+            ...options,
+            headers: { 'x-session-token': TOKEN, ...(options.headers || {}) }
+        });
+    }
+
+    const modal        = document.getElementById('showModal');
+    const showForm     = document.getElementById('showForm');
+    const showsListDiv = document.getElementById('showsList');
+    const saveBtn      = document.getElementById('saveBtn');
+    const overlay      = document.getElementById('loadingOverlay');
+    const loadingText  = document.getElementById('loadingText');
+
+    function showLoading(msg) { loadingText.textContent = msg; overlay.style.display = 'flex'; }
+    function hideLoading()    { overlay.style.display = 'none'; }
+
+    const staticShows = [
+        { title:"Sakura Swan", date:"12 Juin 2026 - 12 Juin 2026", type:"Spectacle Musical", image:"assets/images/show 1.png" },
+        { title:"PFIOU PFIOU", date:"20 Fév 2026 - 31 Mai 2026", type:"Comédie", image:"assets/images/show 2.jpg" },
+        { title:"Il est toujours temps, le musical", date:"2 Juin 2026 - 17 Juin 2026", type:"Comédies Musicales", image:"assets/images/show 3.png" },
+        { title:"Qui a tué Madeleine ?", date:"10 Avr 2026 - 26 Juin 2026", type:"Comédie", image:"assets/images/show 4.jpg" },
+        { title:"Ça va chauffer !", date:"26 Sep 2025 - 24 Juin 2026", type:"Comédie", image:"assets/images/show 5.jpg" },
+        { title:"Redouanne Harjane", date:"10 Jan 2026 - 18 Avr 2026", type:"One man show", image:"assets/images/show 6.jpg" },
+        { title:"DONEL JACK'SMAN", date:"25 Sep 2025 - 27 Juin 2026", type:"One man show", image:"assets/images/show 7.jpg" },
+        { title:"Flemme", date:"27 Sep 2025 - 29 Août 2026", type:"Comédie", image:"assets/images/show 8.jpg" },
+        { title:"Nadège dans 100 Gêne Puzzle", date:"17 Avr 2026-29 Mai 2026", type:"One woman show", image:"assets/images/show 9.jpg" },
+        { title:"Je t'aime à l'italienne/algérienne", date:"2 Mai 2025 - 27 Juin 2026", type:"Comédie", image:"assets/images/show 10.png" },
+        { title:"RODRIGUE", date:"3 Jan 2026 - 26 Avr 2026", type:"One man show", image:"assets/images/show 11.png" },
+        { title:"ET PENDANT CE TEMPS SIGMUND FREUDONNE", date:"2 Fév 2026 - 27 Avr 2026", type:"Comédie", image:"assets/images/show 12.jpg" },
+        { title:"Le Fieald", date:"7 Sep 2025-21 Juin 2026", type:"Plateau d'artistes", image:"assets/images/show 13.jpg" },
+        { title:"WILLEM FAIT LE COMIQUE", date:"25 Fév 2026 - 27 Mai 2026", type:"One man show", image:"assets/images/show 14.png" },
+        { title:"Délivrez-nous du mâle", date:"17 Fév 2026 - 28 Avr 2026", type:"Comédie", image:"assets/images/show 15.jpg" },
+        { title:"Nadège 100 Gêne in Puzzle", date:"17 Avr 2026 - 29 Mai 2026", type:"One woman show", image:"assets/images/show 16.jpeg" },
+        { title:"Le Prix Copeau 2026", date:"22 Juin 2026 - 22 Juin 2026", type:"Spectacle Musical", image:"assets/images/show 17.jpg" },
+        { title:"Wary Nichen en arabe", date:"30 Mai 2026 - 5 Juil 2026", type:"One man show", image:"assets/images/show 18.jpg" },
+        { title:"Thomas Barbazan", date:"18 Juin 2026 - 18 Juin 2026", type:"One man show", image:"assets/images/show 19.png" },
+        { title:"ZAC BULLE", date:"7 Mai 2026 - 7 Mai 2026", type:"Spectacle enfant", image:"assets/images/show 20.png" },
+        { title:"Blues Brothers", date:"16 Oct 2025 - 11 Juin 2026", type:"Concert", image:"assets/images/show 21.png" },
+        { title:"Concours GOAT", date:"13 Juin 2026 - 13 Juin 2026", type:"Plateau d'artistes", image:"assets/images/500.jpg" },
+        { title:"ARLETTY", date:"8 Jan 2026 - 27 Avr 2026", type:"Drame", image:"assets/images/show 23.jpg" },
+        { title:"NOTRE CHER AUTEUR", date:"20 Jan 2026 - 28 Avr 2026", type:"Comédie", image:"assets/images/show 24.jpg" },
+        { title:"La vieille", date:"22 Mars 2026 - 24 Juin 2026", type:"Drame", image:"assets/images/show 25.png" },
+        { title:"BODYCOUNT", date:"4 Avr 2026 - 25 Avr 2026", type:"Comédie", image:"assets/images/show 26.jpg" },
+        { title:"À Contretemps", date:"11 Avr 2026 - 22 Avr 2026", type:"Spectacle Musical", image:"assets/images/show 27.png" },
+        { title:"Frédéric Bukolé in Épopée", date:"31 Jan 2026 - 27 Juin 2026", type:"One man show", image:"assets/images/show 28.jpg" },
+        { title:"Grand temps", date:"27 Nov 2025 - 4 Juin 2026", type:"One woman show", image:"assets/images/show 29.jpg" },
+        { title:"Les Années Folles", date:"2 Avr 2026 - 7 Mai 2026", type:"Spectacle Musical", image:"assets/images/show 30.png" },
+        { title:"JE SUIS LA FEMME", date:"10 Juin 2026 - 10 Juin 2026", type:"Drame", image:"assets/images/show 31.jpg" },
+        { title:"NABIL KOLLEB", date:"25 Avr 2026 - 25 Avr 2026", type:"One man show", image:"assets/images/show 34.jpg" },
+        { title:"Fanny Delaigue", date:"4 Mai 2026 - 4 Mai 2026", type:"Concert", image:"assets/images/show 35.png" },
+        { title:"Concert Tazenda", date:"20 Mai 2026 - 20 Mai 2026", type:"Concert", image:"assets/images/show 36.jpg" },
+        { title:"Le Sourire de Luis", date:"26 Mai 2026 - 4 Juin 2026", type:"Spectacle Musical", image:"assets/images/show 37.png" },
+        { title:"Karine Dubernet CARABISTOUILLES", date:"13 Déc 2026 - 18 Avr 2027", type:"One woman show", image:"assets/images/show 38.jpg" },
+        { title:"Fouad Reeves", date:"30 Mai 2026 - 30 Mai 2026", type:"One man show", image:"assets/images/show 39.jpeg" },
+        { title:"Karine Dubernet PERLIMPINPIN", date:"12 Avr 2026 - 11 Oct 2026", type:"One woman show", image:"assets/images/show 40.jpg" },
+        { title:"Radio Nova – La riposte", date:"15 Sep 2025 - 30 Mar 2026", type:"Plateau d'artistes", image:"assets/images/show 41.jpeg" },
+        { title:"LE LAC DES CYGNES", date:"17 Oct 2026 - 24 Avr 2027", type:"Jeune public", image:"assets/images/show 42.jpg" },
+        { title:"CASSE-NOISETTE", date:"5 Déc 2026 - 20 Fév 2027", type:"Jeune public", image:"assets/images/show 43.jpg" },
+        { title:"Opéra Miaou", date:"3 Oct 2026 - 3 Avr 2027", type:"Jeune public", image:"assets/images/show 44.jpg" },
+        { title:"TOC TOC", date:"2 Juil 2026 - 29 Août 2026", type:"Comédie", image:"assets/images/show 45.jpg" }
+    ];
+
+    flatpickr("#date", { mode:"range", dateFormat:"d M Y", locale:"fr" });
+
+    document.getElementById('imageFile').addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const preview = document.getElementById('imgPreview');
+        preview.src = URL.createObjectURL(file);
+        preview.style.display = 'block';
+    });
+
+    let editImageUrl = '';
+
+    function openModal(id = null, imageUrl = '') {
+        modal.style.display = 'flex';
+        document.getElementById('imgPreview').style.display = 'none';
+        document.getElementById('imageFile').value = '';
+        editImageUrl = imageUrl;
+
+        if (id) {
+            document.getElementById('modalTitle').textContent = "Edit Show";
+            document.getElementById('imageLabel').textContent = "Image (leave empty to keep current)";
+            apiCall(`/api/shows/${id}`).then(r => r.json()).then(shows => {
+                // find from fetched list stored in window
+                const s = window._adminShows?.find(x => x.id === id);
+                if (s) {
+                    document.getElementById('showId').value   = id;
+                    document.getElementById('title').value    = s.title;
+                    document.getElementById('date').value     = s.date;
+                    document.getElementById('type').value     = s.type;
+                    document.getElementById('desc').value     = s.desc || '';
+                    document.getElementById('time').value     = s.time || '';
+                    document.getElementById('Salle').value    = s.Salle || '';
+                    document.getElementById('price').value    = s.price || '';
+                    document.getElementById('duration').value = s.duration || '';
+                    if (s.image) {
+                        const preview = document.getElementById('imgPreview');
+                        preview.src = s.image;
+                        preview.style.display = 'block';
+                        editImageUrl = s.image;
+                    }
+                }
+            });
+        } else {
+            document.getElementById('modalTitle').textContent = "Add a Show";
+            document.getElementById('imageLabel').textContent = "Image (Upload file)";
+            showForm.reset();
+            document.getElementById('showId').value = '';
+            editImageUrl = '';
+        }
+    }
+
+    function closeModal() { modal.style.display = 'none'; }
+
+    async function compressToBase64(file) {
+        return new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = (e) => {
+                const img = new Image();
+                img.src = e.target.result;
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    const MAX_W  = 700;
+                    const scale  = MAX_W / img.width;
+                    canvas.width  = MAX_W;
+                    canvas.height = img.height * scale;
+                    canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+                    canvas.toBlob((blob) => {
+                        const r2 = new FileReader();
+                        r2.onload = () => resolve(r2.result);
+                        r2.readAsDataURL(blob);
+                    }, 'image/jpeg', 0.65);
+                };
+            };
+        });
+    }
+
+    showForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const id        = document.getElementById('showId').value;
+        const title     = document.getElementById('title').value.trim();
+        const date      = document.getElementById('date').value.trim();
+        const type      = document.getElementById('type').value;
+        const desc      = document.getElementById('desc').value.trim();
+        const imageFile = document.getElementById('imageFile').files[0];
+
+        if (!title || !date || !desc) { alert("Fill in Title, Dates, and Description!"); return; }
+        if (!id && !imageFile)        { alert("Please select an image!"); return; }
+
+        saveBtn.disabled = true;
+        let imageBase64 = editImageUrl;
+
+        if (imageFile) {
+            showLoading("Compressing image...");
+            try { imageBase64 = await compressToBase64(imageFile); }
+            catch (err) { hideLoading(); saveBtn.disabled = false; alert("Image error: " + err.message); return; }
+        }
+
+        showLoading(id ? "Updating show..." : "Saving show...");
+
+        const body = {
+            title, date, type, desc,
+            time:     document.getElementById('time').value.trim(),
+            Salle:    document.getElementById('Salle').value.trim(),
+            price:    document.getElementById('price').value.trim(),
+            duration: document.getElementById('duration').value.trim(),
+            image:    imageBase64
+        };
+
+        try {
+            const res  = await apiCall(id ? `/api/shows/${id}` : '/api/shows', {
+                method:  id ? 'PUT' : 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body:    JSON.stringify(body)
+            });
+            const data = await res.json();
+            hideLoading();
+            if (res.ok) { alert("Show saved!"); location.reload(); }
+            else { alert("Error: " + (data.error || "Unknown")); saveBtn.disabled = false; }
+        } catch (err) {
+            hideLoading();
+            alert("Cannot reach server.\nMake sure start-server.bat is running.\n\n" + err.message);
+            saveBtn.disabled = false;
+        }
+    });
+
+    async function fetchShows() {
+        try {
+            const res   = await apiCall('/api/shows');
+            if (res.status === 401) { window.location.href = 'login.html'; return; }
+            const shows = await res.json();
+            window._adminShows = shows;
+            renderShows(shows);
+        } catch (err) {
+            showsListDiv.innerHTML = `<p style="color:#ff4d4d;">Cannot connect to server.<br>Run <b>start-server.bat</b> first.<br><small>${err.message}</small></p>`;
+        }
+    }
+
+    function renderShows(adminShows) {
+        showsListDiv.innerHTML = '';
+        adminShows.forEach((s) => {
+            showsListDiv.innerHTML += `
+                <div class="admin-card">
+                    <img src="${s.image}" alt="${s.title}">
+                    <h3>${s.title}</h3>
+                    <div class="card-info">
+                        <div><strong>Date:</strong> ${s.date}</div>
+                        <div><strong>Type:</strong> ${s.type}</div>
+                        <div style="color:#4CAF50;font-weight:bold;margin-top:5px;">[Admin Added]</div>
+                    </div>
+                    <div class="card-actions">
+                        <button class="edit-btn"   onclick="openModal('${s.id}')">EDIT</button>
+                        <button class="delete-btn" onclick="deleteShow('${s.id}')">DELETE</button>
+                    </div>
+                </div>`;
+        });
+        staticShows.forEach((s) => {
+            showsListDiv.innerHTML += `
+                <div class="admin-card" style="opacity:0.8;border-style:dashed;">
+                    <img src="${s.image}" alt="${s.title}">
+                    <h3>${s.title}</h3>
+                    <div class="card-info">
+                        <div><strong>Date:</strong> ${s.date}</div>
+                        <div><strong>Type:</strong> ${s.type}</div>
+                        <div style="color:#ff9800;font-weight:bold;margin-top:5px;">[Static Show]</div>
+                    </div>
+                    <div class="card-actions">
+                        <button disabled style="flex:1;padding:8px;border-radius:6px;cursor:not-allowed;background:#333;border:1px solid #444;color:#fff;">READ ONLY</button>
+                        <button disabled style="flex:1;padding:8px;border-radius:6px;cursor:not-allowed;background:transparent;border:1px solid #555;color:#555;">READ ONLY</button>
+                    </div>
+                </div>`;
+        });
+    }
+
+    async function deleteShow(id) {
+        if (!confirm("Delete this show?")) return;
+        try {
+            const res = await apiCall(`/api/shows/${id}`, { method:'DELETE' });
+            if (res.ok) { alert("Deleted!"); location.reload(); }
+            else { const d = await res.json(); alert("Error: " + d.error); }
+        } catch (err) { alert("Network error: " + err.message); }
+    }
+
+    async function logout() {
+        await apiCall('/api/logout', { method:'POST' }).catch(() => {});
+        localStorage.removeItem('adminToken');
+        window.location.href = 'index.html';
+    }
+
+    window.onclick = (e) => { if (e.target === modal) closeModal(); };
+    fetchShows();
+</script>
+</body>
+</html>

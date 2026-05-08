@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Program Slider</title>
+
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/booking.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        body {
+            margin: 0;
+            background: #000;
+            color: #fff;
+            font-family: Arial;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .left {
+            width: 40%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .left img {
+            width: 70%;
+            border-radius: 10px;
+        }
+
+        .right {
+            width: 60%;
+            padding: 50px;
+        }
+
+        .title {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        .details p {
+            margin: 5px 0;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: none;
+            background: white;
+            color: black;
+            cursor: pointer;
+        }
+
+        /* arrows */
+
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 30px;
+            cursor: pointer;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .left-arrow {
+            left: 10px;
+        }
+
+        .right-arrow {
+            right: 10px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 1024px) {
+            .container {
+                flex-direction: column;
+                height: auto;
+                min-height: 100vh;
+            }
+
+            .left,
+            .right {
+                width: 100%;
+            }
+
+            .left {
+                padding-top: 40px;
+            }
+
+            .left img {
+                width: 50%;
+            }
+
+            .right {
+                padding: 30px;
+                text-align: center;
+            }
+
+            .details {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .left img {
+                width: 80%;
+            }
+
+            .title {
+                font-size: 28px;
+            }
+
+            .details {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="logo1"><img src="assets/images/logo.webp" alt="" style="width: 130px; height: 70px;"></div>
+        <nav class="nav" id="navMenu">
+            <a href="index.html">Accueil</a>
+            <a href="show.html">Spectacles</a>
+            <a href="theatre.html">Le théâtre</a>
+            <a href="Training.html">Formations</a>
+            <a href="Gallery.html">Galerie</a>
+            <a href="Access.html">Accès</a>
+            <a href="Contact.html">Contact</a>
+            <a href="login.html" id="navLogin" class="btn-login">Se Connecter</a>
+        </nav>
+        <div class="menu-icon" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+
+    <div class="arrow left-arrow" onclick="prevSlide()">❮</div>
+    <div class="arrow right-arrow" onclick="nextSlide()">❯</div>
+
+    <div class="container">
+        <div class="left">
+            <img id="programImage">
+        </div>
+
+        <div class="right">
+            <div class="title" id="programTitle"></div>
+
+            <div class="details">
+                <p>Dates: <span id="Dates"></span></p>
+                <p>Horaires: <span id="Horaires"></span></p>
+                <p>Salle: <span id="Salle"></span></p>
+                <p>Tarif: <span id="Tarif"></span></p>
+                <p>Durée: <span id="Durée"></span></p>
+            </div>
+
+            <p id="desc"></p><br><br>
+
+            <button class="btn" onclick="openBooking()">RESERVER</button>
+        </div>
+    </div>
+
+    <!-- BOOKING OVERLAY -->
+    <div class="booking-overlay" id="bookingOverlay">
+        <div class="booking-header">
+            <button class="booking-back" onclick="bookingBack()">← Retour</button>
+            <button class="booking-close" onclick="closeBooking()">✕</button>
+        </div>
+
+        <!-- Step 1: Show Details -->
+        <div class="booking-content" id="bookingStep1">
+            <div class="booking-poster">
+                <img id="bookingImage" src="" alt="Show poster">
+            </div>
+            <div class="booking-details">
+                <h1 id="bookingTitle"></h1>
+                <div class="booking-info">
+                    <div class="booking-info-row"><span class="label">Dates</span><span class="value"
+                            id="bookingDates"></span></div>
+                    <div class="booking-info-row"><span class="label">Horaires</span><span class="value"
+                            id="bookingHoraires"></span></div>
+                    <div class="booking-info-row"><span class="label">Salle</span><span class="value"
+                            id="bookingSalle"></span></div>
+                    <div class="booking-info-row"><span class="label">Tarif</span><span class="value"
+                            id="bookingTarif"></span></div>
+                    <div class="booking-info-row"><span class="label">Durée</span><span class="value"
+                            id="bookingDuree"></span></div>
+                </div>
+                <div class="booking-desc" id="bookingDesc"></div>
+                <button class="btn-reserver" onclick="showCalendarStep()">RÉSERVER</button>
+            </div>
+        </div>
+
+        <!-- Step 2: Calendar & Time Selection -->
+        <div class="booking-calendar-step" id="bookingStep2">
+            <h2 class="booking-step-title">Choisissez une date</h2>
+            <p class="booking-step-show" id="calendarShowTitle"></p>
+            <div class="calendar-nav">
+                <button onclick="calendarPrev()">❮ Précédent</button>
+                <span class="month-label" id="calendarMonthLabel"></span>
+                <button onclick="calendarNext()">Suivant ❯</button>
+            </div>
+            <div class="calendar-grid" id="calendarGrid"></div>
+            <div class="time-slots-section" id="timeSlotsSection">
+                <h3 class="time-slots-title" id="timeSlotsTitle">Horaires disponibles</h3>
+                <div class="time-slots-grid" id="timeSlotsGrid"></div>
+            </div>
+            <button class="btn-confirm" id="btnConfirm" onclick="confirmBooking()">CONFIRMER LA RÉSERVATION</button>
+        </div>
+
+        <!-- Step 3: Confirmation -->
+        <div class="booking-confirmed" id="bookingStep3">
+            <div class="check-icon">✓</div>
+            <h2>Réservation Confirmée !</h2>
+            <p id="confirmShowTitle"></p>
+            <p id="confirmDateTime"></p>
+            <p id="confirmSalle"></p>
+            <p id="confirmTarif"></p>
+            <button class="btn-done" onclick="closeBooking()">RETOUR AUX SPECTACLES</button>
+        </div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="assets/js/firebase-config.js"></script>
+    <script>
+        /* 🔥 STATIC DATA (THE ORIGINAL 43 SHOWS) */
+        const staticPrograms = [
+            { title: "Sakura Swan", Dates: "12 Juin 2026 - 12 Juin 2026", type: "Spectacle Musical", image: "assets/images/show 1.png", desc: "Un voyage vers le paradis. Sakura Swan est une histoire bouleversante d’amour, de perte et de transformation.", Horaires: "20:30", Salle: "1", Tarif: "25€", Durée: "1h30" },
+            { title: "PFIOU PFIOU", Dates: "20 Fév 2026 - 31 Mai 2026", type: "Comédie", image: "assets/images/show 2.jpg", desc: "Pfiou Pfiou est une comédie parodique totalement absurde et irrévérencieuse. On y massacre joyeusement le théâtre, les sitcoms et le bon goût dans un rythme effréné.", Horaires: "21:00", Salle: "2", Tarif: "18€", Durée: "1h15" },
+            { title: "Il est toujours temps, le musical", Dates: "2 Juin 2026 - 17 Juin 2026", type: "Comédies Musicales", image: "assets/images/show 3.png", desc: "Et si votre vie ne faisait que commencer ? Un spectacle musical émouvant sur le courage de se réinventer à tout âge.", Horaires: "20:00", Salle: "1", Tarif: "30€", Durée: "1h45" },
+            { title: "Qui a tué Madeleine ?", Dates: "10 Avr 2026 - 26 Juin 2026", type: "Comédie", image: "assets/images/show 4.jpg", desc: "La première comédie musicale et policière Une intrigue policière et musicale où les chansons trahissent autant qu’elles protègent. ", Horaires: "19:30", Salle: "1", Tarif: "22€", Durée: "1h20" },
+            { title: "Ça va chauffer !", Dates: "26 Sep 2025 - 24 Juin 2026", type: "Comédie", image: "assets/images/show 5.jpg", desc: "« Ça va chauffer ! », la comédie où les esprits s’échauffent plus vite que le climat ! J’ai découvert l’écologie à 45 ans, une aventure merveilleuse mais…", Horaires: "20:15", Salle: "2", Tarif: "20€", Durée: "1h10" },
+            { title: "Redouanne Harjane", Dates: "10 Jan 2026 - 18 Avr 2026", type: "One man show", image: "assets/images/show 6.jpg", desc: "Redouanne Harjane a vu le futur. Et franchement c’est pas brillant. Alors il en parle, il en rit, et parfois même…", Horaires: "21:30", Salle: "1", Tarif: "25€", Durée: "1h20" },
+            { title: "DONEL JACK’SMAN", Dates: "25 Sep 2025 - 27 Juin 2026", type: "One man show", image: "assets/images/show 7.jpg", desc: "Donel Jack’sman figure incontournable du standup, des réseaux sociaux et de la télévision française. ", Horaires: "20:45", Salle: "1", Tarif: "28€", Durée: "1h15" },
+            { title: "Flemme", Dates: "27 Sep 2025 - 29 Août 2026", type: "Comédie", image: "assets/images/show 8.jpg", desc: "Les adultes deviennent des ados, pour que les ados deviennent des adultes…. Quand les parents pètent les plombs pour devenir des « boloss »", Horaires: "19:00", Salle: "2", Tarif: "15€", Durée: "1h00" },
+            { title: "Nadège dans 100 Gêne Puzzle", Dates: "17 Avr 2026-29 Mai 2026", type: "One woman show", image: "assets/images/show 9.jpg", desc: "Puzzle est le premier spectacle solo de Nadège, offrant une exploration intime de son parcours en tant que femme, fille d’immigrés et citoyenne du monde.", Horaires: "20:30", Salle: "2", Tarif: "18€", Durée: "1h10" },
+            { title: "Je t’aime à l’italienne/algérienne", Dates: "2 Mai 2025 - 27 Juin 2026", type: "Comédie", image: "assets/images/show 10.png", desc: "La plus méditerranéenne des comédies est de retour à Paris ! Le titre de cette comédie aldente vous rappelle une chanson ringarde voire un poil cul-cul de Frédéric François ?", Horaires: "21:00", Salle: "1", Tarif: "20€", Durée: "1h20" },
+            { title: "RODRIGUE", Dates: "3 Jan 2026 - 26 Avr 2026", type: "One man show", image: "assets/images/show 11.png", desc: "Rodrigue, étoile montante de la nouvelle génération, pose son micro à la Scène Parisienne. Depuis six ans sur scène, Rodrigue a affiné son regard :", Horaires: "20:00", Salle: "2", Tarif: "15€", Durée: "1h05" },
+            { title: "ET PENDANT CE TEMPS SIGMUND FREUDONNE", Dates: "2 Fév 2026 - 27 Avr 2026", type: "Comédie", image: "assets/images/show 12.jpg", desc: "après Et pendant ce temps Simone veille !", Horaires: "19:45", Salle: "1", Tarif: "22€", Durée: "1h30" },
+            { title: "Le Fieald", Dates: "7 Sep 2025-21 Juin 2026", type: "Plateau d'artistes", image: "assets/images/show 13.jpg", desc: "Envie d’une soirée drôle, insolite et pleine de surprises ? Ne manquez pas le FIEALD, la plus folle scène ouverte de Paris !", Horaires: "20:30", Salle: "1", Tarif: "10€", Durée: "2h00" },
+            { title: "WILLEM FAIT LE COMIQUE", Dates: "25 Fév 2026 - 27 Mai 2026", type: "One man show", image: "assets/images/show 14.png", desc: "Un premier spectacle généreux et profondément personnel. Dans « Willem fait le comique », l’humoriste se livre avec sincérité et autodérision à", Horaires: "21:15", Salle: "2", Tarif: "15€", Durée: "1h10" },
+            { title: "Délivrez-nous du mâle", Dates: "17 Fév 2026 - 28 Avr 2026", type: "Comédie", image: "assets/images/show 15.jpg", desc: "On a fait la bringue dans un monastère hier ? J’ai un moine dans mon canapé ! Une délirante et irrévérencieuse comédie dans un authentique dérapage théâtral", Horaires: "20:00", Salle: "1", Tarif: "18€", Durée: "1h20" },
+            { title: "Nadège 100 Gêne in Puzzle", Dates: "17 Avr 2026 - 29 Mai 2026", type: "One woman show", image: "assets/images/show 16.jpeg", desc: "Puzzle est le premier spectacle solo de Nadège, offrant une exploration intime de son parcours en tant que femme, fille d’immigrés et citoyenne du monde.", Horaires: "20:30", Salle: "2", Tarif: "18€", Durée: "1h10" },
+            { title: "Le Prix Copeau 2026", Dates: "22 Juin 2026 - 22 Juin 2026", type: "Spectacle Musical", image: "assets/images/show 17.jpg", desc: "Une soirée unique où les élèves de notre école se confrontent au regard d’un jury présidé par Michel Fau. Le Prix Copeau 2026 marque l’aboutissement", Horaires: "20:00", Salle: "1", Tarif: "12€", Durée: "2h00" },
+            { title: "Wary Nichen en arabe", Dates: "30 Mai 2026 - 5 Juil 2026", type: "One man show", image: "assets/images/show 18.jpg", desc: "Un conte de stand up raconté par un dz citoyen du monde en arabe darija S’il t’arrive de glisser les mots « Labes », « amdoulah » et « inchalah » dans une discussion", Horaires: "21:30", Salle: "1", Tarif: "25€", Durée: "1h20" },
+            { title: "Thomas Barbazan", Dates: "18 Juin 2026 - 18 Juin 2026", type: "One man show", image: "assets/images/show 19.png", desc: "Le parodieur le plus golri de l’Ouest est de retour dans le secteur pour un spectacle inédit.", Horaires: "20:30", Salle: "2", Tarif: "20€", Durée: "1h15" },
+            { title: "ZAC BULLE", Dates: "7 Mai 2026 - 7 Mai 2026", type: "Spectacle enfant", image: "assets/images/show 20.png", desc: "Spectacle en bricolage. Quand Zac Bulle commence à partager de courts films cocasses sur le web alors qu’il n’a que", Horaires: "15:00", Salle: "1", Tarif: "12€", Durée: "0h55" },
+            { title: "Blues Brothers", Dates: "16 Oct 2025 - 11 Juin 2026", type: "Concert", image: "assets/images/show 21.png", desc: "La suite du film « The Blues Brothers » en live, plus Rock, Blues, Burlesque. Une mise en scène déjantée avec des guitares", Horaires: "21:00", Salle: "1", Tarif: "30€", Durée: "1h40" },
+            { title: "Concours GOAT", Dates: "13 Juin 2026 - 13 Juin 2026", type: "Plateau d'artistes", image: "assets/images/500.jpg", desc: "Créez le personnage de vos rêves, écrivez son histoire et donnez-lui vie sur scène. Le Concours GOAT des comédiens est une compétition artistique", Horaires: "20:00", Salle: "1", Tarif: "15€", Durée: "2h00" },
+            { title: "ARLETTY", Dates: "8 Jan 2026 - 27 Avr 2026", type: "Drame", image: "assets/images/show 23.jpg", desc: "Arletty comme vous ne l’avez jamais vu ! Grâce à une correspondance foisonnante et inédite, venez découvrir cette", Horaires: "19:30", Salle: "1", Tarif: "22€", Durée: "1h25" },
+            { title: "NOTRE CHER AUTEUR", Dates: "20 Jan 2026 - 28 Avr 2026", type: "Comédie", image: "assets/images/show 24.jpg", desc: "Comment transformer une tragédie en comédie sans que l’auteur s’en rende compte ? Serge est à la recherche", Horaires: "20:15", Salle: "2", Tarif: "18€", Durée: "1h15" },
+            { title: "La vieille", Dates: "22 Mars 2026 - 24 Juin 2026", type: "Drame", image: "assets/images/show 25.png", desc: "Et si le mort n’était pas tout à fait mort ? Une étrange vieille se rend à l’appartement du personnage principal.", Horaires: "21:00", Salle: "2", Tarif: "15€", Durée: "1h10" },
+            { title: "BODYCOUNT", Dates: "4 Avr 2026 - 25 Avr 2026", type: "Comédie", image: "assets/images/show 26.jpg", desc: "LA COMÉDIE QUI COMPTE… Alex est un romantique convaincu, Sabrina et Sébastien,", Horaires: "20:30", Salle: "1", Tarif: "20€", Durée: "1h20" },
+            { title: "À Contretemps", Dates: "11 Avr 2026 - 22 Avr 2026", type: "Spectacle Musical", image: "assets/images/show 27.png", desc: "2050. Le voyage temporel existe enfin … Mais seulement pour les plus privilégiés. Une Brigade Inter Temporelle", Horaires: "19:00", Salle: "1", Tarif: "25€", Durée: "1h30" },
+            { title: "Frédéric Bukolé", Dates: "31 Jan 2026 - 27 Juin 2026", type: "One man show", image: "assets/images/show 28.jpg", desc: "Épopée, la célébration de la résilience et de l’humour qui transforme chaque épreuve en une aventure mémorable.", Horaires: "21:30", Salle: "2", Tarif: "15€", Durée: "1h15" },
+            { title: "Grand temps", Dates: "27 Nov 2025 - 4 Juin 2026", type: "One woman show", image: "assets/images/show 29.jpg", desc: "Avec son humour tranchant et son franc-parler, Coco Makmak décortique les contradictions culturelles dans un one-woman", Horaires: "20:00", Salle: "1", Tarif: "18€", Durée: "1h10" },
+            { title: "Les Années Folles", Dates: "2 Avr 2026 - 7 Mai 2026", type: "Spectacle Musical", image: "assets/images/show 30.png", desc: "Dans la vie faut pas s’en faire! » Avec Maurice Chevalier, Charles Trenet et Arletty, « il y a toujours de la joie! Dans la Vie faut pas s’en faire, Un baiser, La Mer… ", Horaires: "19:30", Salle: "1", Tarif: "20€", Durée: "1h20" },
+            { title: "JE SUIS LA FEMME", Dates: "10 Juin 2026 - 10 Juin 2026", type: "Drame", image: "assets/images/show 31.jpg", desc: "JE SUIS LA FEMME – L’Éveil d’une Humanité Sensible « Et si votre plus grande force était votre vulnérabilité ? »", Horaires: "20:30", Salle: "2", Tarif: "15€", Durée: "1h15" },
+            { title: "NABIL KOLLEB", Dates: "25 Avr 2026 - 25 Avr 2026", type: "One man show", image: "assets/images/show 34.jpg", desc: "Dans son spectacle, Nabil remarque que son quotidien est bizarre, pourtant il a un job, une famille, des enfants, mais réellement", Horaires: "21:15", Salle: "1", Tarif: "22€", Durée: "1h10" },
+            { title: "Carte blanche à Fanny Delaigue", Dates: "4 Mai 2026 - 4 Mai 2026", type: "Concert", image: "assets/images/show 35.png", desc: "Fanny Delaigue, de la comédie musicale à la pop : une soirée 100 % live De la comédie musicale à la Star Academy,", Horaires: "20:00", Salle: "1", Tarif: "25€", Durée: "1h30" },
+            { title: "Concert du groupe Tazenda", Dates: "20 Mai 2026 - 20 Mai 2026", type: "Concert", image: "assets/images/show 36.jpg", desc: "Gino Marielli guitare et voix Gigi Camedda piano et voix Serena Carta Mantiglia voix soliste et clavier Massimo Cossu guitares", Horaires: "20:30", Salle: "1", Tarif: "30€", Durée: "1h45" },
+            { title: "le Sourire de Luis", Dates: "26 Mai 2026 - 4 Juin 2026", type: "Spectacle Musical", image: "assets/images/show 37.png", desc: "De La Belle de Cadix au Chanteur de Mexico, venez revivre les grands moments de cet immense artiste qu’était Luis Mariano.", Horaires: "19:45", Salle: "1", Tarif: "20€", Durée: "1h20" },
+            { title: "Karine Dubernet", Dates: "13 Déc 2026 - 18 Avr 2027", type: "One woman show", image: "assets/images/show 38.jpg", desc: "Campagnes électorales, affaires, corruption, promesses bidon… bienvenue au royaume des Carabistouilles ! Et si la démocratie n’était qu’un tour de passe-passe ?", Horaires: "21:00", Salle: "1", Tarif: "25€", Durée: "1h15" },
+            { title: "Fouad Reeves", Dates: "30 Mai 2026 - 30 Mai 2026", type: "One man show", image: "assets/images/show 39.jpeg", desc: "Et si on arrêtait de marcher sur des œufs pour recommencer à rire ? Toi aussi t’as l’impression que ce monde ressemble de plus en plus à un meuble ", Horaires: "20:30", Salle: "2", Tarif: "18€", Durée: "1h10" },
+            { title: "Karine Dubernet PERLIMPINPIN", Dates: "12 Avr 2026 - 11 Oct 2026", type: "One woman show", image: "assets/images/show 40.jpg", desc: "Karine Dubernet se rit des ficelles du pouvoir. Avec son humour piquant et son audace réjouissante, ", Horaires: "20:00", Salle: "1", Tarif: "25€", Durée: "1h15" },
+            { title: "Radio Nova", Dates: "15 Sep 2025 - 30 Mar 2026", type: "Plateau d'artistes", image: "assets/images/show 41.jpeg", desc: "Venez assister en live à La riposte, l’émission de Radio Nova qui démonte l’actualité à coups de punchlines acérées !", Horaires: "19:00", Salle: "1", Tarif: "10€", Durée: "1h30" },
+            { title: "LE LAC DES CYGNES", Dates: "17 Oct 2026 - 24 Avr 2027", type: "Jeune public", image: "assets/images/show 42.jpg", desc: "Ballet féerique pour les petits. LE LAC DES CYGNES – UNE EXPÉRIENCE DE BALLET THÉÂTRAL", Horaires: "15:00", Salle: "1", Tarif: "20€", Durée: "1h00" },
+            { title: "CASSE-NOISETTE", Dates: "5 Déc 2026 - 20 Fév 2027", type: "Jeune public", image: "assets/images/show 43.jpg", desc: "La magie de Noël pour les enfants. Cette saison, Casse-Noisette sera présenté à Paris à travers 11 représentations exceptionnelles.", Horaires: "15:00", Salle: "1", Tarif: "20€", Durée: "1h00" },
+            { title: "Opéra Miaou", Dates: "3 Oct 2026 - 3 Avr 2027", type: "Jeune public", image: "assets/images/show 44.jpg", desc: "L’opéra devient un jeu pour les enfants Ce spectacle enchanteur raconte l’histoire de trois chats malicieux.", Horaires: "11:00", Salle: "1", Tarif: "15€", Durée: "0h50" },
+            { title: "TOC TOC", Dates: "2 Juil 2026 - 29 Août 2026", type: "Comédie", image: "assets/images/show 45.jpg", desc: "93 % des gens avouent avoir au moins un TOC… et vous ? La comédie culte aux 3 millions de spectateurs revient", Horaires: "21:00", Salle: "1", Tarif: "25€", Durée: "1h30" }
+        ];
+
+        let programs = [];
+        const urlParams = new URLSearchParams(window.location.search);
+        let current = parseInt(urlParams.get("slide")) || 0;
+
+        async function loadAllPrograms() {
+            try {
+                const querySnapshot = await db.collection("shows").orderBy("createdAt", "desc").get();
+                const firestoreShows = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                programs = [...staticPrograms, ...firestoreShows];
+                
+                if (current >= programs.length) current = 0;
+                loadSlide();
+            } catch (error) {
+                console.error("Error loading programs:", error);
+                programs = staticPrograms;
+                loadSlide();
+            }
+        }
+
+        loadAllPrograms();
+
+        function loadSlide() {
+            if (programs.length === 0) return;
+            const p = programs[current];
+            
+            document.getElementById("programTitle").innerText = p.title;
+            document.getElementById("programImage").src = p.image;
+            document.getElementById("Dates").innerText = p.Dates || p.date || "-";
+            document.getElementById("Horaires").innerText = p.Horaires || p.time || "-";
+            document.getElementById("Salle").innerText = p.Salle || "-";
+            document.getElementById("Tarif").innerText = p.Tarif || p.price || "-";
+            document.getElementById("Durée").innerText = p.Durée || p.duration || "-";
+
+            // ✅ Use innerHTML for <br>
+            document.getElementById("desc").innerHTML = p.desc || "";
+        }
+
+        /* NAVIGATION */
+        function nextSlide() {
+            current = (current + 1) % programs.length;
+            loadSlide();
+        }
+
+        function prevSlide() {
+            current = (current - 1 + programs.length) % programs.length;
+            loadSlide();
+        }
+
+        /* INIT */
+        loadSlide();
+    </script>
+    <script src="assets/js/booking.js"></script>
+
+</body>
+
+</html>

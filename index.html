@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Scene Parisienne</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="logo1"><img src="assets/images/logo.webp" alt="" style="width: 130px; height: 70px;"></div>
+        <nav class="nav" id="navMenu">
+            <a href="index.html" class="active">Accueil</a>
+            <a href="show.html">Spectacles</a>
+            <a href="theatre.html">Le théâtre</a>
+            <a href="Training.html">Formations</a>
+            <a href="Gallery.html">Galerie</a>
+            <a href="Access.html">Accès</a>
+            <a href="Contact.html">Contact</a>
+            <a href="login.html" id="navLogin" class="btn-login">Se Connecter</a>
+        </nav>
+        <div class="menu-icon" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+    <!-- HERO SLIDER -->
+
+    <div class="banner-container">
+
+        <!-- Left Arrow -->
+        <button class="arrow left" onclick="prevBanner()">❮</button>
+
+        <!-- Banner -->
+        <div class="banner-wrapper">
+            <div class="banner" id="banner">
+
+                <!-- 20 Images -->
+                <img src="assets/images/banner 1.jpg">
+                <img src="assets/images/banner 2.jpg">
+                <img src="assets/images/banner 3.jpg">
+                <img src="assets/images/banner 4.png">
+                <img src="assets/images/banner 5.jpeg">
+                <img src="assets/images/banner 6.jpg">
+                <img src="assets/images/banner 7.png">
+                <img src="assets/images/banner 8.png">
+                <img src="assets/images/banner 9.jpg">
+                <img src="assets/images/banner 10.jpeg">
+                <img src="assets/images/banner 11.jpeg">
+                <img src="assets/images/banner 12.jpg">
+                <img src="assets/images/banner 13.jpg">
+                <img src="assets/images/banner 14.png">
+                <img src="assets/images/banner 15.png">
+                <img src="assets/images/banner 16.jpg">
+                <img src="assets/images/banner 17.jpg">
+                <img src="assets/images/banner 18.png">
+                <img src="assets/images/banner 19.jpg">
+                <img src="assets/images/banner 13.jpg">
+
+            </div>
+        </div>
+
+        <!-- Right Arrow -->
+        <button class="arrow right" onclick="nextBanner()">❯</button>
+
+    </div><br><br><br>
+
+    <div class="info-section">
+
+        <div class="info-box">
+            <p class="title">Information importante :</p>
+
+            <p>
+                Les ascenseurs de La Scène Parisienne et de La Divine Comédie sont actuellement en maintenance.<br> Les
+                salles de La Scène Parisienne ne sont pas accessibles aux personnes en fauteuil roulant.<br> À La Divine
+                Comédie, seule la salle 1
+                (salle 120) est accessible.
+            </p>
+
+            <p class="highlight">
+                Ouverture des portes : 20 minutes avant le spectacle.
+            </p>
+        </div>
+
+        <h2 class="heading" style="color: aliceblue;">À L'AFFICHE</h2>
+
+    </div>
+
+    <!-- slider -->
+    <div class="slider-container">
+
+        <button class="arrow left" onclick="slideLeft()">❮</button>
+
+        <div class="slider-wrapper">
+            <div class="slider" id="slider">
+
+            </div>
+
+        </div>
+    </div>
+
+    <button class="arrow right" onclick="slideRight()">❯</button>
+
+    </div><br><br>
+
+    <!-- TOP HEADER -->
+    <div class="top-bar">
+        Les Années Folles<br> Réservations : 06 14 90 04 88
+    </div>
+
+    <div class="newsletter">
+        <div class="content">
+
+            <div class="left">
+                <h1>Inscription Newsletter</h1>
+                <p>
+                    Nouveauté, interviews, premiers aux premières, offres exclusives ... encore plus de Théâtre avec
+                    notre Newsletter
+                </p>
+
+                <a href="formulaire.html" class="btn">S'abonner Ici</a>
+
+                <p>Ou scannez le code ci-joint</p>
+            </div>
+
+            <div class="right">
+                <img src="assets/images/qr-code.png" alt="QR Code">
+            </div>
+
+        </div>
+    </div>
+
+    <!-- BACK TO TOP -->
+    <div class="top-btn" onclick="scrollToTop()">↑</div>
+
+
+    <div class="container2">
+
+        <h1>Rechercher Un Spectacle</h1>
+        <div class="line2"></div>
+
+        <div class="row2">
+
+            <!-- LEFT -->
+            <div class="left2">
+
+                <input type="text" id="dateRange" placeholder="Sélectionner une date"
+                    style="background-color: #000; color: #fff;">
+
+                <style>
+                    #type option {
+                        background-color: #000;
+                        color: #fff;
+                    }
+                </style>
+                <select id="type" style="background-color: #000; color: #fff;">
+                    <option value="">Type de spectacle</option>
+                    <option value="Comédie">Comédie</option>
+                    <option value="Comédies Musicales">Comédies Musicales</option>
+                    <option value="Concert">Concert</option>
+                    <option value="Drame">Drame</option>
+                    <option value="Jeune public">Jeune public</option>
+                    <option value="One man show">One man show</option>
+                    <option value="One woman show">One woman show</option>
+                    <option value="Opéra">Opéra</option>
+                    <option value="Plateau d'artistes">Plateau d'artistes</option>
+                    <option value="Plateau d'humoristes">Plateau d'humoristes</option>
+                    <option value="Seul en scène">Seul en scène</option>
+                    <option value="Showcase">Showcase</option>
+                    <option value="Spectacle enfant">Spectacle enfant</option>
+                    <option value="Spectacle Musical">Spectacle Musical</option>
+                    <option value="Spectacle musical familial">Spectacle musical familial</option>
+                    <option value="Stand-Up">Stand-Up</option>
+                    <option value="Theatre">Theatre</option>
+                    <option value="Théâtre classique">Théâtre classique</option>
+                    <option value="Théâtre Musical familial">Théâtre Musical familial</option>
+                </select>
+
+                <button onclick="searchShows()">RECHERCHER</button>
+
+            </div>
+
+            <!-- RIGHT -->
+            <div class="right2">
+                <p id="slideDate"></p>
+                <h2 class="slide-title" id="slideTitle"></h2>
+                <p class="slide-desc" id="slideDesc"></p>
+            </div>
+
+        </div>
+
+        <div class="results" id="results"></div>
+
+    </div>
+
+    <!-- FLATPICKR JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <script>
+        /* 🔥 STATIC DATA (THE ORIGINAL 43 SHOWS) */
+        const staticShows = [
+            { title: "Sakura Swan", date: "12 Juin 2026 - 12 Juin 2026", type: "Spectacle Musical", image: "assets/images/show 1.png", desc: "Un voyage vers le paradis. Sakura Swan est une histoire bouleversante d’amour, de perte et de transformation." },
+            { title: "PFIOU PFIOU", date: "20 Fév 2026 - 31 Mai 2026", type: "Comédie", image: "assets/images/show 2.jpg", desc: "Pfiou Pfiou est une comédie parodique totalement absurde et irrévérencieuse." },
+            { title: "Il est toujours temps, le musical", date: "2 Juin 2026 - 17 Juin 2026", type: "Comédies Musicales", image: "assets/images/show 3.png", desc: "Et si votre vie ne faisait que commencer ? Un spectacle musical émouvant sur le courage de se réinventer à tout âge." },
+            { title: "Qui a tué Madeleine ?", date: "10 Avr 2026 - 26 Juin 2026", type: "Comédie", image: "assets/images/show 4.jpg", desc: "La première comédie musicale et policière Une intrigue policière et musicale où les chansons trahissent autant qu’elles protègent." },
+            { title: "Ça va chauffer !", date: "26 Sep 2025 - 24 Juin 2026", type: "Comédie", image: "assets/images/show 5.jpg", desc: "« Ça va chauffer ! », la comédie où les esprits s’échauffent plus vite que le climat !" },
+            { title: "Redouanne Harjane", date: "10 Jan 2026 - 18 Avr 2026", type: "One man show", image: "assets/images/show 6.jpg", desc: "Redouanne Harjane a vu le futur. Et franchement c’est pas brillant." },
+            { title: "DONEL JACK’SMAN, NOUVEAU SPECTACLE", date: "25 Sep 2025 - 27 Juin 2026", type: "One man show", image: "assets/images/show 7.jpg", desc: "Donel Jack’sman figure incontournable du standup, des réseaux sociaux et de la télévision française." },
+            { title: "Flemme", date: "27 Sep 2025 - 29 Août 2026", type: "Comédie", image: "assets/images/show 8.jpg", desc: "Les adultes deviennent des ados, pour que les ados deviennent des adultes…." },
+            { title: "Nadège dans 100 Gêne Puzzle", date: "17 Avr 2026-29 Mai 2026", type: "One woman show", image: "assets/images/show 9.jpg", desc: "Puzzle est le premier spectacle solo de Nadège, offrant une exploration intime de son parcours." },
+            { title: "Je t’aime à l’italienne/algérienne", date: "2 Mai 2025 - 27 Juin 2026", type: "Comédie", image: "assets/images/show 10.png", desc: "La plus méditerranéenne des comédies est de retour à Paris !" },
+            { title: "RODRIGUE", date: "3 Jan 2026 - 26 Avr 2026", type: "One man show", image: "assets/images/show 11.png", desc: "Rodrigue, étoile montante de la nouvelle génération, pose son micro à la Scène Parisienne." },
+            { title: "ET PENDANT CE TEMPS SIGMUND FREUDONNE", date: "2 Fév 2026 - 27 Avr 2026", type: "Comédie", image: "assets/images/show 12.jpg", desc: "après Et pendant ce temps Simone veille !" },
+            { title: "Le Fieald", date: "7 Sep 2025-21 Juin 2026", type: "Plateau d'artistes", image: "assets/images/show 13.jpg", desc: "Envie d’une soirée drôle, insolite et pleine de surprises ? Ne manquez pas le FIEALD." },
+            { title: "WILLEM FAIT LE COMIQUE", date: "25 Fév 2026 - 27 Mai 2026", type: "One man show", image: "assets/images/show 14.png", desc: "Un premier spectacle généreux et profondément personnel." },
+            { title: "Délivrez-nous du mâle", date: "17 Fév 2026 - 28 Avr 2026", type: "Comédie", image: "assets/images/show 15.jpg", desc: "On a fait la bringue dans un monastère hier ? J’ai un moine dans mon canapé !" },
+            { title: "Nadège 100 Gêne in Puzzle", date: "17 Avr 2026 - 29 Mai 2026", type: "One woman show", image: "assets/images/show 16.jpeg", desc: "Puzzle est le premier spectacle solo de Nadège, offrant une exploration intime." },
+            { title: "Le Prix Copeau 2026", date: "22 Juin 2026 - 22 Juin 2026", type: "Spectacle Musical", image: "assets/images/show 17.jpg", desc: "Une soirée unique où les élèves de notre école se confrontent au regard d’un jury." },
+            { title: "Wary Nichen en arabe", date: "30 Mai 2026 - 5 Juil 2026", type: "One man show", image: "assets/images/show 18.jpg", desc: "S’il t’arrive de glisser les mots « Labes », « amdoulah » et « inchalah » dans une discussion." },
+            { title: "Thomas Barbazan : On l’appelait DJ Chelou", date: "18 Juin 2026 - 18 Juin 2026", type: "One man show", image: "assets/images/show 19.png", desc: "Le parodieur le plus golri de l’Ouest est de retour dans le secteur." },
+            { title: "ZAC BULLE – Spectacle en bricolage", date: "7 Mai 2026 - 7 Mai 2026", type: "Spectacle enfant", image: "assets/images/show 20.png", desc: "Quand Zac Bulle commence à partager de courts films cocasses sur le web." },
+            { title: "Le spectacle américain des Blues Brothers", date: "16 Oct 2025 - 11 Juin 2026", type: "Concert", image: "assets/images/show 21.png", desc: "La suite du film « The Blues Brothers » en live, plus Rock, Blues, Burlesque." },
+            { title: "Concours GOAT des comédiens – Saison 4", date: "13 Juin 2026 - 13 Juin 2026", type: "Plateau d'artistes", image: "assets/images/500.jpg", desc: "Créez le personnage de vos rêves, écrivez son histoire et donnez-lui vie sur scène." },
+            { title: "ARLETTY, UN CŒUR TRÈS OCCUPÉ", date: "8 Jan 2026 - 27 Avr 2026", type: "Drame", image: "assets/images/show 23.jpg", desc: "Arletty comme vous ne l’avez jamais vu ! Grâce à une correspondance foisonnante." },
+            { title: "NOTRE CHER AUTEUR", date: "20 Jan 2026 - 28 Avr 2026", type: "Comédie", image: "assets/images/show 24.jpg", desc: "Comment transformer une tragédie en comédie sans que l’auteur s’en rende compte ?" },
+            { title: "La vieille", date: "22 Mars 2026 - 24 Juin 2026", type: "Drame", image: "assets/images/show 25.png", desc: "Et si le mort n’était pas tout à fait mort ? Une étrange vieille se rend à l’appartement." },
+            { title: "BODYCOUNT", date: "4 Avr 2026 - 25 Avr 2026", type: "Comédie", image: "assets/images/show 26.jpg", desc: "LA COMÉDIE QUI COMPTE… Alex est un romantique convaincu." },
+            { title: "À Contretemps", date: "11 Avr 2026 - 22 Avr 2026", type: "Spectacle Musical", image: "assets/images/show 27.png", desc: "2050. Le voyage temporel existe enfin … Mais seulement pour les plus privilégiés." },
+            { title: "Frédéric Bukolé in Épopée", date: "31 Jan 2026 - 27 Juin 2026", type: "One man show", image: "assets/images/show 28.jpg", desc: "Épopée, la célébration de la résilience et de l’humour." },
+            { title: "Grand temps", date: "27 Nov 2025 - 4 Juin 2026", type: "One woman show", image: "assets/images/show 29.jpg", desc: "Avec son humour tranchant et son franc-parler, Coco Makmak décortique les contradictions." },
+            { title: "Les Années Folles", date: "2 Avr 2026 - 7 Mai 2026", type: "Spectacle Musical", image: "assets/images/show 30.png", desc: "Dans la vie faut pas s’en faire! Avec Maurice Chevalier, Charles Trenet et Arletty." },
+            { title: "JE SUIS LA FEMME ", date: "10 Juin 2026 - 10 Juin 2026", type: "Drame", image: "assets/images/show 31.jpg", desc: "L’Éveil d’une Humanité Sensible « Et si votre plus grande force était votre vulnérabilité ? »" },
+            { title: "NABIL KOLLEB in Tounsi W Nos", date: "25 Avr 2026 - 25 Avr 2026", type: "One man show", image: "assets/images/show 34.jpg", desc: "Dans son spectacle, Nabil remarque que son quotidien est bizarre." },
+            { title: "Carte blanche à Fanny Delaigue", date: "4 Mai 2026 - 4 Mai 2026", type: "Concert", image: "assets/images/show 35.png", desc: "Fanny Delaigue, de la comédie musicale à la pop : une soirée 100 % live." },
+            { title: "Concert du groupe Tazenda", date: "20 Mai 2026 - 20 Mai 2026", type: "Concert", image: "assets/images/show 36.jpg", desc: "Le groupe ethno-pop-rock historique qui a fait connaître la chanson en langue sarde." },
+            { title: "le Sourire de Luis: hommage à Luis Mariano", date: "26 Mai 2026 - 4 Juin 2026", type: "Spectacle Musical", image: "assets/images/show 37.png", desc: "De La Belle de Cadix au Chanteur de Mexico, hommage à Luis Mariano." },
+            { title: " Karine Dubernet in CARABISTOUILLES", date: "13 Déc 2026 - 18 Avr 2027", type: "One woman show", image: "assets/images/show 38.jpg", desc: "Campagnes électorales, affaires, corruption, promesses bidon… bienvenue au royaume." },
+            { title: "Fouad Reeves in Délicieuse Insolence", date: "30 Mai 2026 - 30 Mai 2026", type: "One man show", image: "assets/images/show 39.jpeg", desc: "Et si on arrêtait de marcher sur des œufs pour recommencer à rire ?" },
+            { title: "Karine Dubernet in PERLIMPINPIN", date: "12 Avr 2026 - 11 Oct 2026", type: "One woman show", image: "assets/images/show 40.jpg", desc: "Karine Dubernet se rit des ficelles du pouvoir. Humour piquant et audace." },
+            { title: "Radio Nova – La riposte", date: "15 Sep 2025 - 30 Mar 2026", type: "Plateau d'artistes", image: "assets/images/show 41.jpeg", desc: "Venez assister en live à La riposte, l’émission de Radio Nova qui démonte l’actualité !" },
+            { title: "LE LAC DES CYGNES", date: "17 Oct 2026 - 24 Avr 2027", type: "Jeune public", image: "assets/images/show 42.jpg", desc: "Ballet féerique pour les petits. Expérience de ballet théâtral enchantée." },
+            { title: "CASSE-NOISETTE ", date: "5 Déc 2026 - 20 Fév 2027", type: "Jeune public", image: "assets/images/show 43.jpg", desc: "La magie de Noël pour les enfants. Casse-Noisette sera présenté à Paris." },
+            { title: "Opéra Miaou", date: "3 Oct 2026 - 3 Avr 2027", type: "Jeune public", image: "assets/images/show 44.jpg", desc: "L’opéra devient un jeu pour les enfants Ce spectacle enchanteur." },
+            { title: "TOC TOC", date: "2 Juil 2026 - 29 Août 2026", type: "Comédie", image: "assets/images/show 45.jpg", desc: "93 % des gens avouent avoir au moins un TOC… et vous ?" }
+        ];
+
+        let shows = [];
+
+        async function loadShows() {
+            try {
+                const res = await fetch('/api/public/shows');
+                const adminShows = await res.json();
+                shows = [...adminShows, ...staticShows];
+            } catch (error) {
+                shows = staticShows;
+            }
+            populateSlider(shows);
+            autoSlide();
+            setInterval(autoSlide, 3000);
+        }
+
+        function populateSlider(data) {
+            const sliderDiv = document.getElementById("slider");
+            sliderDiv.innerHTML = "";
+            data.forEach((s, index) => {
+                const card = document.createElement("div");
+                card.className = "program-card";
+                card.onclick = () => openProgram(index);
+                card.innerHTML = `
+                    <p>${s.date || "-"}</p><br>
+                    <img src="${s.image}" style="width: 250px; height: 400px; object-fit: cover;"><br><br>
+                    <h3>${s.title}</h3>
+                    <p>${s.desc.substring(0, 150)}${s.desc.length > 150 ? '...' : ''}</p>
+                    <div class="btns">
+                        <button class="outline">En Savoir +</button>
+                        <button class="fill">Réserver</button>
+                    </div>
+                `;
+                sliderDiv.appendChild(card);
+            });
+            if (typeof initSlider === 'function') initSlider();
+        }
+
+        loadShows();
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function getRange(show) {
+            if (!show.date) return { start: null, end: null };
+            const parts = show.date.split(/\s*-\s*/);
+            const startStr = parts[0];
+            const endStr = parts[1] || parts[0];
+            const start = parseFD(startStr);
+            const end = parseFD(endStr);
+            return { start, end };
+        }
+
+        function parseFD(str) {
+            if (!str) return null;
+            const months = {
+                "Jan": 0, "Fév": 1, "Mars": 2, "Avr": 3, "Mai": 4, "Juin": 5,
+                "Juil": 6, "Août": 7, "Sep": 8, "Oct": 9, "Nov": 10, "Déc": 11
+            };
+            const p = str.trim().split(" ");
+            if (p.length < 3) return null;
+            const d = parseInt(p[0]);
+            const m = months[p[1]];
+            const y = parseInt(p[2]);
+            return new Date(y, m, d);
+        }
+
+        /* DATE RANGE PICKER */
+        let fpInstance = flatpickr("#dateRange", {
+            mode: "range",
+            dateFormat: "d M Y",
+        });
+
+        /* AUTO TEXT SLIDER */
+        let current = 0;
+
+        function autoSlide() {
+            if (shows.length === 0) return;
+            const s = shows[current];
+
+            document.getElementById("slideTitle").innerText = s.title;
+            document.getElementById("slideDesc").innerText = s.desc;
+            document.getElementById("slideDate").innerText = s.date;
+
+            current = (current + 1) % shows.length;
+        }
+
+        /* SEARCH */
+        function searchShows() {
+            const dates = fpInstance.selectedDates;
+            const type = document.getElementById("type").value;
+
+            let from = null;
+            let to = null;
+
+            if (dates.length > 0) {
+                from = new Date(dates[0]);
+                from.setHours(0, 0, 0, 0);
+                if (dates.length > 1) {
+                    to = new Date(dates[1]);
+                    to.setHours(23, 59, 59, 999);
+                } else {
+                    to = new Date(dates[0]);
+                    to.setHours(23, 59, 59, 999);
+                }
+            }
+
+            let filtered = shows.filter(s => {
+                let matchDate = true;
+                if (from && to) {
+                    const r = getRange(s);
+                    if (!r.start || !r.end) {
+                        matchDate = false;
+                    } else {
+                        const showStart = new Date(r.start);
+                        showStart.setHours(0, 0, 0, 0);
+                        const showEnd = new Date(r.end);
+                        showEnd.setHours(23, 59, 59, 999);
+                        matchDate = (showStart >= from && showEnd <= to);
+                    }
+                }
+
+                let matchType = true;
+                if (type) {
+                    matchType = s.type.toLowerCase() === type.toLowerCase();
+                }
+
+                return matchDate && matchType;
+            });
+
+            displayResults(filtered);
+        }
+
+        /* DISPLAY */
+        function displayResults(data) {
+            const box = document.getElementById("results");
+            box.innerHTML = "";
+
+            if (data.length === 0) {
+                box.innerHTML = "<p>Aucun spectacle trouvé</p>";
+                return;
+            }
+
+            data.forEach((s) => {
+                const origIdx = shows.indexOf(s);
+                box.innerHTML += `
+            <div class="card" onclick="openPage(${origIdx})">
+                <img src="${s.image}" alt="${s.title}" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px;">
+                <p style="color: #fff; margin-top: 10px; font-weight: bold; text-align: center;">${s.title}</p>
+            </div>
+        `;
+            });
+        }
+
+        /* REDIRECT */
+        function openPage(index) {
+            window.location.href = "program.html?slide=" + index;
+        }
+
+        function toggleMenu() {
+            const nav = document.getElementById("navMenu");
+            nav.classList.toggle("active");
+        }
+    </script>
+
+    <div class="footer-top">
+
+        <div class="line3"></div>
+
+        <div class="footer-row" style="background: linear-gradient(to right, #000, #3a0000);">
+
+            <!-- LEFT -->
+            <div class="footer-col">
+                <div class="logo"><img src="assets/images/logo.webp" alt="image" style="width: 160px; height: 100px;">
+                </div>
+
+                <p>La Scene Parisienne ©Tous droits réservés</p>
+                <p>Mentions légales</p>
+                <p>Site réalisé par MSV et design par Divine Agency</p>
+            </div>
+
+            <!-- CENTER -->
+            <div class="footer-col">
+                <h3>Liens utiles</h3>
+
+                <p>Spectacles</p>
+                <p>Le Théâtre</p>
+                <p>Accès</p>
+                <p>Contact</p>
+            </div>
+
+            <!-- RIGHT -->
+            <div class="footer-col">
+                <h3>La Scène Parisienne</h3>
+
+                <p>Metro 9 Grands Boulevards</p>
+                <p>Metro 7 Le Peletier Ou Cadet 75009 Paris, FR</p>
+                <p>Horaire: 10h30 - 18h30</p>
+                <p>01 42 46 03 63</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- BOTTOM -->
+    <div class="footer-bottom">
+
+        <h3>THÉÂTRES ET PRODUCTEURS ASSOCIÉS</h3>
+
+        <p>
+            The Théâtre de la Scène Parisienne is a member of Théâtres et Producteurs Associés, and is therefore part of
+            a strict professional ethic: respect for the rights of authors and performing artists, respect for the
+            general conditions of welcoming the public,
+            preservation of a leading architectural and cultural heritage.
+        </p>
+
+        <a href="https://tpa.fr/">https://tpa.fr/</a>
+
+        <img src="assets/images/logo_tpa.fr_.svg" alt="TPA Logo">
+
+    </div>
+
+
+
+    <script src="assets/js/script.js"></script>
+
+
+</body>
+
+</html>
