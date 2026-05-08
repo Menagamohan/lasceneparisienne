@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install *)",
+      "PowerShell(npm install -g @railway/cli 2>&1)",
+      "PowerShell(tail -5)"
+    ]
+  }
+}
